@@ -1,0 +1,22 @@
+WEBAPP
+©À©¤src
+©¦  ©À©¤assets
+©¦  ©¦  ©À©¤common
+©¦  ©¦  ©¦  ©¸©¤loading
+©¦  ©¦  ©À©¤css
+©¦  ©¦  ©À©¤data
+©¦  ©¦  ©À©¤img
+©¦  ©¦  ©¸©¤lib
+©¦  ©¦      ©À©¤handlebars
+©¦  ©¦      ©À©¤jquery
+©¦  ©¦      ©¸©¤requirejs
+©¦  ©À©¤js
+©¦  ©À©¤module
+©¦  ©¦  ©¸©¤example
+©¦  ©À©¤static
+©¦  ©¸©¤tpl
+©À©¤node_modules
+©À©¤dist
+©À©¤gulpfile.js
+©¸©¤package.json
+
