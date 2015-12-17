@@ -161,6 +161,41 @@ define(['Util','js/index/header'],function (Util,header) {
 		});
 	})
 
+	/* 待删除
+	var searchBoxInit = function(){
+		$('.layout .menu .searchBox .icon').on('click', function(e){
+			Util.ajax.postJson('a.json', {}, function(){
+				console.log('111');
+			})
+		});
+	}
+	*/
+
+	//休息与微博弹出菜单
+	var popupLayoutMenuInit = function(){
+		require(['js/index/popLayoutWaep'], function(Waep){
+			var busyMenu = new Waep({
+				el:'.layout .menu .busy', 
+				menus:[
+					{ text:'休息', click:function(e){ console.log('pause') } }, 
+					{ text:'整理延长', click:function(e){ console.log('extend') } }, 
+					{ text:'签出', click:function(e){ console.log('checkOut') } }, 
+				]
+			});
+			var callOutMenu = new Waep({
+				el:'.layout .menu .callOut', 
+				menus:[
+					{ text:'微博1', click:function(e){ console.log('mic blog') } }, 
+					{ text:'邮件', click:function(e){ console.log('mail') } }, 
+					{ text:'短信', click:function(e){ console.log('msg') } }, 
+				]
+			});
+			callOutMenu.addListener('initialize', function(){
+				console.log('initialized...')
+			});
+		});
+	}
+
 	//工作时间
 	function secondsFormatStr(seconds, guide) {
 		guide = guide || seconds;
