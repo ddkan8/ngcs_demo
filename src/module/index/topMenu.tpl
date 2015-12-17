@@ -1,8 +1,15 @@
 <div class="shortBox">
   <div class="navLeftMenu">
-    <div class="search"> <a href=javascript:; class="sBtn"> <span class="sBtnRight"> <span class="sBtnCenter">
-      <input>
-      <span class="tigger"></span> </span> </span> </a> </div>
+    <div class="search">
+      <a href="javascript:;" class="sBtn">
+        <span class="sBtnRight">
+            <span class="sBtnCenter">
+              <input id="J_memu_key" type="text" />
+              <span class="tigger" id="J_searchMenu_btn"></span>
+            </span>
+          </span>
+      </a>
+    </div>
     <div class="topNavMenu">
       <ul>
         <!-- <li class="selected">服务请求</li> -->
@@ -27,7 +34,7 @@
               <dd>
                 <ul>
                   {{#each thirdMenu}}
-                    <li> <a href=javascript:;>{{menuName}}</a> </li>
+                    <li> <a href="javascript:;">{{menuName}}</a> </li>
                   {{/each}}
                 </ul>
               </dd>

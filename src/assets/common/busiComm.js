@@ -73,7 +73,7 @@ define(['Util'],function(Util){
 	//生成滚动条
 	var createScroll = function(obj,height){	
 		var scrollbar;
-		try{		
+		try{
 			//更新滚动条
 			scrollbar = obj.niceScroll();
 			height&&obj.css({'height':height+"px"});

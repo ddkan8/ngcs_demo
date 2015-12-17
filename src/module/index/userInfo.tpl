@@ -1,11 +1,11 @@
 <div class="performance">
     <h2>
-       <span>今日总结接触量</span><em>138</em>
+       <span>今日总结接触量</span><em>{{totalTouchNum}}</em>
     </h2>
     <ul class="performWay">
-      <li class="selected sms">20</li>
-      <li class="weixin">20</li>
-      <li class="email">88</li>
+      <li class="selected sms">{{wxTouchNum}}</li>
+      <li class="weixin">{{wbTouchNum}}</li>
+      <li class="email">{{malTouchNum}}</li>
     </ul>
     <ul class="myPerform">
       <li><a href="javascript:;" class="kp">我的K币</a></li>

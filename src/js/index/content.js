@@ -145,12 +145,18 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 			},100);
 	    });
 		//加载快捷菜单
-		/*var pop8 = new ucd.PopLayout({
+		// var pop8 = new ucd.PopLayout({
+		// 	container:$chatWarp.find(".tab li"),
+		// 	dataType:"url",
+		// 	action:'click',
+		// 	content:'pages/tabmenu.html'
+		// });
+		Util.tips({
 			container:$chatWarp.find(".tab li"),
 			dataType:"url",
 			action:'click',
-			content:'pages/tabmenu.html'
-		});*/
+			content:'module/index/tabmenu.html'
+		});
 		//点击 客户轨迹 Iphone5 手机
 		$chatWarp.find(".navText .shopping").click(function(e){
 			switchTab(" Iphone5 手机","pages/shopping.html");

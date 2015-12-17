@@ -1,0 +1,12 @@
+{
+	"returnCode":"0",
+	"returnMessage":"",
+	"bean":{
+		"id":"1001",
+		"name":"黄华林",
+		"totalTouchNum":"113",
+		"wxTouchNum":"21",
+		"wbTouchNum":"10",
+		"malTouchNum":"87"
+	}
+}

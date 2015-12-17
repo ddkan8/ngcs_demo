@@ -1,0 +1,93 @@
+<script>
+	$(function(){
+		//点击标签页蓝色下拉菜单添加新标签页
+		$(".tabMenu dl dd li a").bind("click",function(e){
+			$(this).parents(".popLayoutWaep").hide();			
+			//li切换样式
+			var $li = $(this).parent();
+			$li.parents("dd").find("li").removeClass("selected");	
+			$li.addClass("selected");
+			switchTab($(this).text());
+			e.stopPropagation();
+		});	
+	})
+</script>
+<div class="shortBox">
+  <div class="tabMenu">
+    <div class="subMenu">
+      <dl>
+        <dt>常用操作</dt>
+        <dd>
+          <ul>
+            <li class="first ex"> <a href="javascript:void(0);">公告便签</a> </li>
+            <li> <a href="javascript:void(0);">当天接触</a> </li>
+            <li class="selected"> <a href="javascript:void(0);">未完请求</a> </li>
+            <li class="last"> <a href="javascript:void(0);">未完接触</a> </li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>服务策略</dt>
+        <dd>
+          <ul>
+            <li class="first"> <a href="javascript:void(0);">监控台</a> </li>
+            <li> <a href="javascript:void(0);">事件预警</a> </li>
+            <li> <a href="javascript:void(0);">指标库管理</a> </li>
+            <li> <a href="javascript:void(0);">事件管理</a> </li>
+            <li> <a href="javascript:void(0);">客户标签管理</a> </li>
+            <li class="last"> <a href="javascript:void(0);">策略单元管理</a> </li>
+          </ul>
+          <ul>
+            <li class="first last"> <a href="javascript:void(0);">分策略全视图</a> </li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>工作流</dt>
+        <dd>
+          <ul>
+            <li class="first"> <a href="javascript:void(0);">工单池</a> </li>
+            <li> <a href="javascript:void(0);">待办区</a> </li>
+            <li class="last ex"> <a href="javascript:void(0);">工单查询</a> </li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>综合查询</dt>
+        <dd>
+          <ul>
+            <li class="first"> <a href="javascript:void(0);">预约提醒</a> </li>
+            <li> <a href="javascript:void(0);">收藏夹</a> </li>
+            <li class="last"> <a href="javascript:void(0);">传真发送</a> </li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>常用工具</dt>
+        <dd>
+          <ul>
+            <li class="first"> <a href="javascript:void(0);">接续统计</a> </li>
+            <li> <a href="javascript:void(0);">请求查询</a> </li>
+            <li class="last"> <a href="javascript:void(0);">接触查询</a> </li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>配置管理</dt>
+        <dd>
+          <ul>
+            <li class="first"> <a href="javascript:void(0);">组织机构维护</a> </li>
+            <li> <a href="javascript:void(0);">工作组维护</a> </li>
+            <li> <a href="javascript:void(0);">人员信息维护</a> </li>
+            <li> <a href="javascript:void(0);">角色维护</a> </li>
+            <li class="last"> <a href="javascript:void(0);">数据表维护</a> </li>
+          </ul>
+          <ul>
+            <li class="first"> <a href="javascript:void(0);">平台工号维护</a> </li>
+            <li class="last"> <a href="javascript:void(0);">更新全局缓存</a> </li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>

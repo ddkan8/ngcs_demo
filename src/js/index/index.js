@@ -2,10 +2,10 @@ define(['Util','js/index/header'],function (Util,header) {
 
 	//创建tab标签
 	var glbTab, glbTabArr = [], tabDefaultData, serviceTS = 0;
-	//获取tab页签信息
-	Util.svMap.add('tab','tab.json','');
 
 	$(function(){
+		//获取tab页签信息
+		Util.svMap.add('tab','tab.json','');
 		//获取当前聊天客户
 		Util.ajax.getJsonAsync(Util.svMap.get('tab'),'',function(json,status){
 			if (status) {
@@ -13,16 +13,82 @@ define(['Util','js/index/header'],function (Util,header) {
 			};
 		})
 
+		//获取客户列表和等待人数
+		Util.svMap.add('clientInfo','clientInfo.json','');
+		Util.ajax.postJsonAsync(Util.svMap.get('clientInfo'),'',function(json,status){
+			if (status) {
+				if (json.bean.waitPersonNum) {
+					$('.peopleNum strong').text(json.bean.waitPersonNum);//设置等待人数
+				}
+				var template = Util.hdb.compile($('#T_clientList').html());//handlebars模板编译
+				$('#J_clientList').html(template(json.beans));
+			}else{
+				$('.peopleNum strong').text('0');
+			}
+		})
+
+		//切换聊天客户
+		$("#J_clientList .panel .msgInfo").on('click',function(e){
+			var $this = $(this);
+			$this.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
+			$this.find(".bubble").hide();
+			
+			var _clientInfo = $('.userInfoCont');
+			_clientInfo.find('.name').text($this.attr('cName'));
+			_clientInfo.find('.account').text($this.attr('phoneNum'));
+			_clientInfo.find('.pkgCur').text($this.attr('meal'));
+			_clientInfo.find('.userLocal').text($this.attr('region'));
+			_clientInfo.find('.feeState').text($this.attr('state'));
+			//设置星级
+			$('.userStar .star').removeClass('starCur');
+			for (var i = 0; i < $this.attr('starLevel'); i++) {
+				$('.userStar .star').eq(i).addClass('starCur');
+			};
+			//切换渠道icon
+			var channelId = $this.attr('channel');
+			$('.typesTool span').removeClass('appCur');
+			if (channelId === '1') {
+				$('.typesTool .sms').addClass('appCur');
+			}else if(channelId === '2'){
+				$('.typesTool .weixin').addClass('appCur');
+			}else if(channelId === '3'){
+				$('.typesTool .weibo').addClass('appCur');
+			}else if(channelId === '4'){
+				$('.typesTool .feixin').addClass('appCur');
+			}else if(channelId === '5'){
+				$('.typesTool .email').addClass('appCur');
+			}
+
+			var index = $this.parents(".panel").index();
+			createChartWrap(index);//创建聊天面板
+			
+			//清除闪动
+			if(window.firstPush && index == 0){
+				window.clearInterval(window.firstPush);
+				$this.find(".feixin").removeClass("fade");
+				window.setTimeout(function(){
+					$this.find(".feixin").removeClass("fade");
+				},500);
+			}
+		}).eq(1).click();
+
+		//微博渠道加关注
+		$("#content").on("click.weibo",".typesTool .weibo",function(){
+			$("#weiboAttention").css({top:$(this).offset().top+24+"px",left:$(this).offset().left-$("#weiboAttention").outerWidth(true)/2+9+"px"}).show(0)
+			.unbind("mouseleave").bind("mouseleave",function(){
+				$(this).hide(0);
+			});
+		});
+		$("#weiboAttention").on("click.weibo",".btnsCon .greenBtn",function(){
+			$("#weiboAttention").hide(0);
+		});
+		
+		//进入系统后的计时器
 		setInterval(function(){
 			serviceTS = serviceTS + 1;
 			var dstr = secondsFormatStr(serviceTS);
 			$(".serviceT > span").text(dstr);
-		},1000)	
-
-		//搜索知识框按钮
-		$("#search_knowledge").on('click', function(){
-			Util.busiComm.switchTab("搜索知识","pages/searchhot.html", glbTab);
-		})
+		},1000)
 
 		//收缩侧栏
 		$(".leftSc").on('click', function(){
@@ -43,26 +109,6 @@ define(['Util','js/index/header'],function (Util,header) {
 			}
 		});
 
-		//切换聊天客户
-		$("#content .nav > .panel:not(0) .msgInfo").on('click',function(e){
-			var $this = $(this);
-			$this.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
-			$this.find(".bubble").hide();
-			
-			var index = $this.parents(".panel").index()-3;
-			createChartWrap(index);//创建聊天面板
-			
-			$("#content .userInfoItem").eq(index).addClass("show").siblings().removeClass("show");
-			//清除闪动
-			if(window.firstPush && index == 0){
-				window.clearInterval(window.firstPush);
-				$this.find(".feixin").removeClass("fade");
-				window.setTimeout(function(){
-					$this.find(".feixin").removeClass("fade");
-				},500);
-			}
-		}).eq(1).click();
-		// console.log(glbTab)
 		header(glbTab);//加载菜单
 
 		//demo
@@ -80,32 +126,6 @@ define(['Util','js/index/header'],function (Util,header) {
 				$panel.removeClass("noneBg")
 			});
 		},3000);
-		//公告
-		$(".entertainingDiversions").bind("play",function(){
-			var $txt = $(this).find(".txt");
-			var $this = $(this);
-			var tw = $txt.width();
-			var iw = $this.innerWidth();
-			if(tw<=iw)return;
-			$txt.text($txt.text()+$txt.text());
-			window.entertainingDiversionsTime = setInterval(function(){
-				var lef = parseInt($txt.css("margin-left"),10);
-				lef -=1;
-				if(Math.abs(lef)>= tw){
-					lef = 0;
-				}
-				$txt.css("margin-left",lef+"px");
-			},60);
-		}).bind("stop",function(){
-			clearInterval(window.entertainingDiversionsTime);
-		});
-
-		$(".entertainingDiversions").trigger("play");
-		Util.busiComm.bindInpEvent($(".search > input"),"搜索知识");
-
-		$(".tools .entertainingDiversions").click(function(){
-			Util.busiComm.switchTab("公告", '', glbTab);
-		});
 
 		// interSetTime();
 
@@ -133,16 +153,6 @@ define(['Util','js/index/header'],function (Util,header) {
 			nextIndex = nextIndex+2;
 			$("#content .nav > .panel").eq(nextIndex).find(".msgInfo").click();
 		})
-		//微博渠道加关注
-		$("#content").on("click.weibo",".typesTool .weibo",function(){
-			$("#weiboAttention").css({top:$(this).offset().top+24+"px",left:$(this).offset().left-$("#weiboAttention").outerWidth(true)/2+9+"px"}).show(0)
-			.unbind("mouseleave").bind("mouseleave",function(){
-				$(this).hide(0);
-			});
-		});
-		$("#weiboAttention").on("click.weibo",".btnsCon .greenBtn",function(){
-			$("#weiboAttention").hide(0);
-		});
 
 		//查看历史
 	  	$("#content .centerW .seeHistory").click(function(){
