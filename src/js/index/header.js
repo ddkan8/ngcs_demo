@@ -47,7 +47,7 @@ define(['Util', 'text!module/index/topMenu.tpl', 'text!module/index/userInfo.tpl
 		})
 	}
 	//用户中心
-	var userCenter = function(){
+	var userCenter = function(glbTabObj){
 		Util.svMap.add('userCenter','userCenter.json','');
 		//用户信息pop
 		Util.ajax.postJson(Util.svMap.get('userCenter'),'aaa=111',function(json,status){
@@ -61,11 +61,10 @@ define(['Util', 'text!module/index/topMenu.tpl', 'text!module/index/userInfo.tpl
 					content:template(json.bean)	//handlebars模板数据渲染
 				});
 
-
 				//样式切换
 				$(".myPerform li").click(function(){
 					//$(this).addClass("selected").siblings().removeClass("selected");
-					Util.busiComm.switchTab($(this).text(),'',glbTabObj);
+					Util.busiComm.switchTab($(this).text(),'js/temp/myCoinOfK',glbTabObj);
 				});
 		        $(".tempType li").on("click",function(){
 		            var index = $(this).index();
@@ -138,7 +137,7 @@ define(['Util', 'text!module/index/topMenu.tpl', 'text!module/index/userInfo.tpl
 
 	return function(glbTabObj, keyword){
 		loadTopNav(glbTabObj, keyword);
-		userCenter();
+		userCenter(glbTabObj);
 		notice(glbTabObj);
 		searchKnowledge(glbTabObj);
 
