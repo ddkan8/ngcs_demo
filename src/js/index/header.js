@@ -126,9 +126,12 @@ define(['Util', 'text!module/index/topMenu.tpl', 'text!module/index/userInfo.tpl
 	//知识搜索
 	var searchKnowledge = function(glbTabObj){
 		Util.busiComm.bindInpEvent($(".search > input"),"搜索知识");
+		
 		//搜索知识框按钮
 		$("#search_knowledge").on('click', function(){
-			Util.busiComm.switchTab("搜索知识","pages/searchhot.html", glbTabObj);
+			var $box = $('.layout .menu .search .normal');
+			console.log($box.val());
+			Util.busiComm.switchTab("搜索知识","js/temp/knowledge", glbTabObj);
 		})
 	}
 
