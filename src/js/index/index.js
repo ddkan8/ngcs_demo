@@ -12,7 +12,20 @@ define(['Util','js/index/header'],function (Util,header) {
 				tabDefaultData = json;
 			};
 		})
-
+		//翻译渠道名称
+		Util.hdb.registerHelper('transChannel', function(val) {
+			if(val === '1') {
+				return 'sms';
+			}else if(val === '2'){
+				return 'weixin';
+			}else if(val === '3'){
+				return 'weibo';
+			}else if(val === '4'){
+				return 'feixin';
+			}else if(val === '5'){
+				return 'email';
+			}
+		});
 		//获取客户列表和等待人数
 		Util.svMap.add('clientInfo','clientInfo.json','');
 		Util.ajax.postJsonAsync(Util.svMap.get('clientInfo'),'',function(json,status){
@@ -26,6 +39,7 @@ define(['Util','js/index/header'],function (Util,header) {
 				$('.peopleNum strong').text('0');
 			}
 		})
+
 
 		//切换聊天客户
 		$("#J_clientList .panel .msgInfo").on('click',function(e){
