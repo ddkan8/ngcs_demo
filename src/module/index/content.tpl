@@ -449,7 +449,7 @@
                   </li>-->
                 </ul>
                 <div class="msgCont" style="overflow:hidden">
-                  <script tar="editor"  id="editor" type="text/plain"></script>
+                  <script tar="editor"  id="editor_rep" type="text/plain"></script>
                 </div>
                 <a class="sendBtn">发 送</a> </div>
             </div>

@@ -8,7 +8,7 @@ define(function(){
 
         //constructor: EventTarget,
 
-        addListener: function(type, listener){
+        on: function(type, listener){
             if (typeof this._listeners[type] == "undefined"){
                 this._listeners[type] = [];
             }
@@ -16,7 +16,7 @@ define(function(){
             this._listeners[type].push(listener);
         },
 
-        fire: function(event){
+        trigger: function(event, param1, param2){
             if (typeof event == "string"){
                 event = { type: event };
             }
@@ -31,7 +31,7 @@ define(function(){
             if (this._listeners[event.type] instanceof Array){
                 var listeners = this._listeners[event.type];
                 for (var i=0, len=listeners.length; i < len; i++){
-                    listeners[i].call(this, event);
+                    listeners[i].apply(this, [].slice.call(arguments, 1));
                 }
             }
         },
