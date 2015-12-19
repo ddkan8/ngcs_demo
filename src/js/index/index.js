@@ -2,7 +2,7 @@ define(['Util','js/index/header'],function (Util,header) {
 
 	//创建tab标签
 	var glbTab, glbTabArr = [], tabDefaultData, serviceTS = 0;
-	var client = null, userIntro=null;
+	var client = null, clientIntro=null, content = null;
 
 /*
 setTimeout(function(){
@@ -39,26 +39,37 @@ setTimeout(function(){
 		})
 
 		setTimeout(function(){
+			//客户列表
 			require(['js/index/client'], function(Client){
 				client = new Client({
 					el:'.layout .nav', 
 
 				});
 				client.on('itemClick', function(e, data){
-					userIntro.update(data);
+					clientIntro.update(data);
+					//content.update(data);
 					var $src = $(e.currentTarget);
 					var index = $src.index();
 					createChartWrap(index);//创建聊天面板
-				})
+				});
 			});
-			require(['js/index/userIntro'], function(UserIntro){
-				if (!userIntro){
-					userIntro = new UserIntro({
+			//客户介绍 
+			require(['js/index/clientIntro'], function(Intro){
+				if (!clientIntro){
+					clientIntro = new Intro({
 						el:'.layout .section .clientInfo', 
 					});
 				}
 				
 			});
+			/*
+			//选项卡内容区域
+			require(['content'], function(Content){
+				content = new Content({
+					el:'.layer'
+				});
+			})
+			*/
 		}, 200);
 
 		//翻译渠道名称

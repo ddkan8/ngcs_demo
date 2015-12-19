@@ -5,6 +5,7 @@ ngcs
 
 头部
     弹出菜单 js/index/popLayoutWaep.js
+        功能：
         参数：
             el 指定一个选择器
             menus 定义菜单项

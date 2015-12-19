@@ -1,9 +1,9 @@
 
-define(['jquery','Util', 'hdb', 'js/eventTarget', 'text!module/index/client.tpl'], function($,Util, Handlebars,EventTarget, tpl){
+define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
 
     var objClass = function(options){
         
-        EventTarget.call(this);
+        Util.eventTarget.call(this);
         this.options = options;
         setTimeout($.proxy(function(){
             console.log(tpl)
@@ -14,9 +14,9 @@ define(['jquery','Util', 'hdb', 'js/eventTarget', 'text!module/index/client.tpl'
         
     }
     
-    $.extend(objClass.prototype, EventTarget.prototype, {
+    $.extend(objClass.prototype, Util.eventTarget.prototype, {
         constructor:objClass, 
-        template:Handlebars.compile(tpl),
+        template:Util.hdb.compile(tpl),
         eventInit:function(){
             this.$el.on('click','#J_clientList>.panel', $.proxy(function(e){
                 var $src = $(e.currentTarget);
@@ -39,7 +39,7 @@ define(['jquery','Util', 'hdb', 'js/eventTarget', 'text!module/index/client.tpl'
         }
     });
     
-    Handlebars.registerHelper('_channel', function(channelNo) {
+    Util.hdb.registerHelper('_channel', function(channelNo) {
         return { '1':'sms','2':'weixin','3':'weibo','4':'feixin','5':'email' }[channelNo];
     });
 

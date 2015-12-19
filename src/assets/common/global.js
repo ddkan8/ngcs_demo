@@ -15,8 +15,9 @@ define([
 	'pop',
 	'tabs',
 	'busiComm',
+	'js/eventTarget',
 	'json2'
-], function($, ajax, svMap, pager, dialog,hdb,pop,tabs,busiComm) {
+], function($, ajax, svMap, pager, dialog,hdb,pop,tabs,busiComm, eventTarget) {
 	return {
 		$: $,
 		ajax: ajax,
@@ -26,6 +27,7 @@ define([
 		hdb: hdb,
 		tips: pop,
 		tabs: tabs,
-		busiComm: busiComm
+		busiComm: busiComm, 
+		eventTarget:eventTarget
 	}
 });

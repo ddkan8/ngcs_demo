@@ -1,5 +1,5 @@
 
-define(['jquery','Util', 'hdb', 'js/eventTarget', 'text!module/index/userIntro.tpl'], function($,Util, Handlebars,EventTarget, tpl){
+define(['jquery','Util', 'hdb', 'js/eventTarget', 'text!module/index/clientIntro.tpl'], function($,Util, Handlebars,EventTarget, tpl){
 
     var objClass = function(options){
         EventTarget.call(this);
