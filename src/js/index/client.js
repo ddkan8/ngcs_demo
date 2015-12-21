@@ -31,13 +31,12 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
         eventInit:function(){
             this.$el.on('click','#J_clientList .panel', $.proxy(function(e){
                 var $src = $(e.currentTarget);
-                var index = $src.parents('.panel').index();
-                var data = this.json.beans[index];
                 var index = $src.index();
+                var data = this.json.beans[index];
                 this.trigger('itemClick', e, data,index);
                 var $msgInfo = $src.find('.msgInfo');
                 $msgInfo.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
-                $msgInfo.find(".bubble").hide();
+                //$msgInfo.find(".bubble").hide();
             },this));
             
         }, 
