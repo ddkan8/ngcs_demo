@@ -16,7 +16,9 @@ define([
 	'tabs',
 	'busiComm',
 	'js/eventTarget',
-	'json2'
+	'json2',
+	'hdbHelper'
+
 ], function($, ajax, svMap, pager, dialog,hdb,pop,tabs,busiComm, eventTarget) {
 	return {
 		$: $,

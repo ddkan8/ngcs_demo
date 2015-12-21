@@ -42,11 +42,11 @@
                     <p class="userStar">
                         <!--<span class="title">全球通</span>
                         <span class="bubble"></span>-->
-                        <span class="star starCur"></span>
-                        <span class="star starCur"></span>
-                        <span class="star starCur"></span>
-                        <span class="star starCur"></span>
-                        <span class="star"></span>
+                        <span class="star {{#if_gt starLevel compare=0}}starCur{{/if_gt}}"></span>
+                        <span class="star {{#if_gt starLevel compare=1}}starCur{{/if_gt}}"></span>
+                        <span class="star {{#if_gt starLevel compare=2}}starCur{{/if_gt}}"></span>
+                        <span class="star {{#if_gt starLevel compare=3}}starCur{{/if_gt}}"></span>
+                        <span class="star {{#if_gt starLevel compare=4}}starCur{{/if_gt}}"></span>
                     </p>
                 </div>
                 <div class="info">
