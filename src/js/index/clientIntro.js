@@ -4,6 +4,7 @@ define(['jquery','Util', 'hdb', 'js/eventTarget', 'text!module/index/clientIntro
     var objClass = function(options){
         EventTarget.call(this);
         this.options = options;
+        this.$el = $(this.options.el);
         setTimeout($.proxy(function(){
             this.$el = $(this.options.el);
         }, this), 100);
