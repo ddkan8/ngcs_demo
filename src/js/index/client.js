@@ -31,18 +31,12 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
         eventInit:function(){
             this.$el.on('click','#J_clientList .panel', $.proxy(function(e){
                 var $src = $(e.currentTarget);
-                var index = $src.parents('.panel').index();
-                //{ e:e, data:data} 
-                var $src = $(e.currentTarget);
                 var index = $src.index();
-                if (index<0){
-                    index = 0;
-                }
                 var data = this.json.beans[index];
                 this.trigger('itemClick', e, data,index);
                 var $msgInfo = $src.find('.msgInfo');
                 $msgInfo.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
-                $msgInfo.find(".bubble").hide();
+                //$msgInfo.find(".bubble").hide();
             },this));
             
         }, 
@@ -57,8 +51,8 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
                 }
                 if (json && json.beans && json.beans.length){
                     var itemData = json.beans[0];
-                    
                     this.trigger('itemClick', {}, itemData, 0);
+                    $('#J_clientList>.panel').eq(0).find('.msgInfo').addClass("select");
                 }
             }, this));
         }
