@@ -4,30 +4,6 @@ define(['Util','js/index/header'],function (Util,header) {
 	var glbTab, glbTabArr = [], tabDefaultData, serviceTS = 0;
 	var client = null, clientIntro=null, content = null;
 
-/*
-setTimeout(function(){
-			require(['js/index/client'], function(Client){
-				client = new Client({
-					el:'.layout .nav', 
-
-				});
-				client.on('itemClick', function(e, data){
-					userIntro.update(data);
-					var $src = $(e.currentTarget);
-					var index = $src.index();
-					createChartWrap(index);//创建聊天面板
-				})
-			});
-			require(['js/index/userIntro'], function(UserIntro){
-				if (!userIntro){
-					userIntro = new UserIntro({
-						el:'.layout .section .clientInfo', 
-					});
-				}
-				
-			});
-*/
-
 	$(function(){
 		//获取tab页签信息
 		Util.svMap.add('tab','tab.json','');
@@ -43,7 +19,9 @@ setTimeout(function(){
 			require(['js/index/client'], function(Client){
 				client = new Client({
 					el:'.layout .nav', 
+					itemClick:function(){
 
+					}
 				});
 				client.on('itemClick', function(e, data){
 					clientIntro.update(data);
@@ -89,39 +67,6 @@ setTimeout(function(){
 			}
 		});
 
-		//切换聊天客户
-		// $("#J_clientList .panel .msgInfo").on('click',function(e){
-		// 	var $this = $(this);
-		// 	$this.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
-		// 	$this.find(".bubble").hide();
-			
-		// 	var _clientInfo = $('.userInfoCont');
-		// 	_clientInfo.find('.name').text($this.attr('cName'));
-		// 	_clientInfo.find('.account').text($this.attr('phoneNum'));
-		// 	_clientInfo.find('.pkgCur').text($this.attr('meal'));
-		// 	_clientInfo.find('.userLocal').text($this.attr('region'));
-		// 	_clientInfo.find('.feeState').text($this.attr('state'));
-		// 	//设置星级
-		// 	$('.userStar .star').removeClass('starCur');
-		// 	for (var i = 0; i < $this.attr('starLevel'); i++) {
-		// 		$('.userStar .star').eq(i).addClass('starCur');
-		// 	};
-		// 	//切换渠道icon
-		// 	var channelId = $this.attr('channel');
-		// 	$('.typesTool span').removeClass('appCur');
-		// 	if (channelId === '1') {
-		// 		$('.typesTool .sms').addClass('appCur');
-		// 	}else if(channelId === '2'){
-		// 		$('.typesTool .weixin').addClass('appCur');
-		// 	}else if(channelId === '3'){
-		// 		$('.typesTool .weibo').addClass('appCur');
-		// 	}else if(channelId === '4'){
-		// 		$('.typesTool .feixin').addClass('appCur');
-		// 	}else if(channelId === '5'){
-		// 		$('.typesTool .email').addClass('appCur');
-		// 	}
-
-		// });
 		//微博渠道加关注
 		$("#content").on("click.weibo",".typesTool .weibo",function(){
 			$("#weiboAttention").css({top:$(this).offset().top+24+"px",left:$(this).offset().left-$("#weiboAttention").outerWidth(true)/2+9+"px"}).show(0)
@@ -212,79 +157,6 @@ setTimeout(function(){
 	})
 
 	
-	// var eventInit = function(){
-	// 	$("#J_clientList .panel .msgInfo").on('click', clientItemClick);
-	// }
-
-	// var clientItemClick = function(e){
-	// 	var $this = $(this);
-	// 	$this.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
-	// 	$this.find(".bubble").hide();
-		
-	// 	var _clientInfo = $('.userInfoCont');
-	// 	_clientInfo.find('.name').text($this.attr('cName'));
-	// 	_clientInfo.find('.account').text($this.attr('phoneNum'));
-	// 	_clientInfo.find('.pkgCur').text($this.attr('meal'));
-	// 	_clientInfo.find('.userLocal').text($this.attr('region'));
-	// 	_clientInfo.find('.feeState').text($this.attr('state'));
-	// 	//设置星级
-	// 	$('.userStar .star').removeClass('starCur');
-	// 	for (var i = 0; i < $this.attr('starLevel'); i++) {
-	// 		$('.userStar .star').eq(i).addClass('starCur');
-	// 	};
-	// 	//切换渠道icon
-	// 	var channelId = $this.attr('channel');
-	// 	$('.typesTool span').removeClass('appCur');
-	// 	if (channelId === '1') {
-	// 		$('.typesTool .sms').addClass('appCur');
-	// 	}else if(channelId === '2'){
-	// 		$('.typesTool .weixin').addClass('appCur');
-	// 	}else if(channelId === '3'){
-	// 		$('.typesTool .weibo').addClass('appCur');
-	// 	}else if(channelId === '4'){
-	// 		$('.typesTool .feixin').addClass('appCur');
-	// 	}else if(channelId === '5'){
-	// 		$('.typesTool .email').addClass('appCur');
-	// 	}
-
-	// 	var index = $this.parents(".panel").index();
-	// 	createChartWrap(index);//创建聊天面板
-		
-	// 	//清除闪动
-	// 	if(window.firstPush && index == 0){
-	// 		window.clearInterval(window.firstPush);
-	// 		$this.find(".feixin").removeClass("fade");
-	// 		window.setTimeout(function(){
-	// 			$this.find(".feixin").removeClass("fade");
-	// 		},500);
-	// 	}
-	// }
-
-	// var clientListInit = function(){
-	// 	//获取客户列表和等待人数
-	// 	Util.svMap.add('clientInfo','clientInfo.json','');
-	// 	Util.ajax.postJsonAsync(Util.svMap.get('clientInfo'),'',function(json,status){
-	// 		if (status) {
-	// 			if (json.bean.waitPersonNum) {
-	// 				$('.peopleNum strong').text(json.bean.waitPersonNum);//设置等待人数
-	// 			}
-	// 			var template = Util.hdb.compile($('#T_clientList').html());//handlebars模板编译
-	// 			$('#J_clientList').html(template(json.beans));
-	// 		}else{
-	// 			$('.peopleNum strong').text('0');
-	// 		}
-	// 	})
-	// }
-
-	/* 待删除
-	var searchBoxInit = function(){
-		$('.layout .menu .searchBox .icon').on('click', function(e){
-			Util.ajax.postJson('a.json', {}, function(){
-				console.log('111');
-			})
-		});
-	}
-	*/
 
 	//休息与微博弹出菜单
 	var popupLayoutMenuInit = function(){
@@ -582,3 +454,140 @@ setTimeout(function(){
 		$(".weiboUe").remove();
 	}
 })
+
+
+
+/*
+setTimeout(function(){
+			require(['js/index/client'], function(Client){
+				client = new Client({
+					el:'.layout .nav', 
+
+				});
+				client.on('itemClick', function(e, data){
+					userIntro.update(data);
+					var $src = $(e.currentTarget);
+					var index = $src.index();
+					createChartWrap(index);//创建聊天面板
+				})
+			});
+			require(['js/index/userIntro'], function(UserIntro){
+				if (!userIntro){
+					userIntro = new UserIntro({
+						el:'.layout .section .clientInfo', 
+					});
+				}
+				
+			});
+*/
+
+
+
+		//切换聊天客户
+		// $("#J_clientList .panel .msgInfo").on('click',function(e){
+		// 	var $this = $(this);
+		// 	$this.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
+		// 	$this.find(".bubble").hide();
+			
+		// 	var _clientInfo = $('.userInfoCont');
+		// 	_clientInfo.find('.name').text($this.attr('cName'));
+		// 	_clientInfo.find('.account').text($this.attr('phoneNum'));
+		// 	_clientInfo.find('.pkgCur').text($this.attr('meal'));
+		// 	_clientInfo.find('.userLocal').text($this.attr('region'));
+		// 	_clientInfo.find('.feeState').text($this.attr('state'));
+		// 	//设置星级
+		// 	$('.userStar .star').removeClass('starCur');
+		// 	for (var i = 0; i < $this.attr('starLevel'); i++) {
+		// 		$('.userStar .star').eq(i).addClass('starCur');
+		// 	};
+		// 	//切换渠道icon
+		// 	var channelId = $this.attr('channel');
+		// 	$('.typesTool span').removeClass('appCur');
+		// 	if (channelId === '1') {
+		// 		$('.typesTool .sms').addClass('appCur');
+		// 	}else if(channelId === '2'){
+		// 		$('.typesTool .weixin').addClass('appCur');
+		// 	}else if(channelId === '3'){
+		// 		$('.typesTool .weibo').addClass('appCur');
+		// 	}else if(channelId === '4'){
+		// 		$('.typesTool .feixin').addClass('appCur');
+		// 	}else if(channelId === '5'){
+		// 		$('.typesTool .email').addClass('appCur');
+		// 	}
+
+		// });
+
+
+	// var eventInit = function(){
+	// 	$("#J_clientList .panel .msgInfo").on('click', clientItemClick);
+	// }
+
+	// var clientItemClick = function(e){
+	// 	var $this = $(this);
+	// 	$this.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
+	// 	$this.find(".bubble").hide();
+		
+	// 	var _clientInfo = $('.userInfoCont');
+	// 	_clientInfo.find('.name').text($this.attr('cName'));
+	// 	_clientInfo.find('.account').text($this.attr('phoneNum'));
+	// 	_clientInfo.find('.pkgCur').text($this.attr('meal'));
+	// 	_clientInfo.find('.userLocal').text($this.attr('region'));
+	// 	_clientInfo.find('.feeState').text($this.attr('state'));
+	// 	//设置星级
+	// 	$('.userStar .star').removeClass('starCur');
+	// 	for (var i = 0; i < $this.attr('starLevel'); i++) {
+	// 		$('.userStar .star').eq(i).addClass('starCur');
+	// 	};
+	// 	//切换渠道icon
+	// 	var channelId = $this.attr('channel');
+	// 	$('.typesTool span').removeClass('appCur');
+	// 	if (channelId === '1') {
+	// 		$('.typesTool .sms').addClass('appCur');
+	// 	}else if(channelId === '2'){
+	// 		$('.typesTool .weixin').addClass('appCur');
+	// 	}else if(channelId === '3'){
+	// 		$('.typesTool .weibo').addClass('appCur');
+	// 	}else if(channelId === '4'){
+	// 		$('.typesTool .feixin').addClass('appCur');
+	// 	}else if(channelId === '5'){
+	// 		$('.typesTool .email').addClass('appCur');
+	// 	}
+
+	// 	var index = $this.parents(".panel").index();
+	// 	createChartWrap(index);//创建聊天面板
+		
+	// 	//清除闪动
+	// 	if(window.firstPush && index == 0){
+	// 		window.clearInterval(window.firstPush);
+	// 		$this.find(".feixin").removeClass("fade");
+	// 		window.setTimeout(function(){
+	// 			$this.find(".feixin").removeClass("fade");
+	// 		},500);
+	// 	}
+	// }
+
+	// var clientListInit = function(){
+	// 	//获取客户列表和等待人数
+	// 	Util.svMap.add('clientInfo','clientInfo.json','');
+	// 	Util.ajax.postJsonAsync(Util.svMap.get('clientInfo'),'',function(json,status){
+	// 		if (status) {
+	// 			if (json.bean.waitPersonNum) {
+	// 				$('.peopleNum strong').text(json.bean.waitPersonNum);//设置等待人数
+	// 			}
+	// 			var template = Util.hdb.compile($('#T_clientList').html());//handlebars模板编译
+	// 			$('#J_clientList').html(template(json.beans));
+	// 		}else{
+	// 			$('.peopleNum strong').text('0');
+	// 		}
+	// 	})
+	// }
+
+	/* 待删除
+	var searchBoxInit = function(){
+		$('.layout .menu .searchBox .icon').on('click', function(e){
+			Util.ajax.postJson('a.json', {}, function(){
+				console.log('111');
+			})
+		});
+	}
+	*/
