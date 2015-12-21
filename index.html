@@ -128,102 +128,13 @@
                     <div class="bottomW"><div class="right"><div class="center"></div></div></div>
                 </div>
                 <div id="J_clientList"></div>
-                <!-- <div class="panel mtF7">
-                    <div class="topW"><div class="right"><div class="center"></div></div></div>
-                    <div class="centerW">
-                    <div class="right"><div class="center">
-                        <div class="msgInfo state1">
-                            <div class="msgType">
-                                <span class="icon feixin"></span>
-                                <div class="bubble strong">1</div>
-                            </div>
-                            <div class="message">
-                                <h1><span>12:10</span><strong>刘西</strong></h1>
-                                <div>我刚充的话费怎么就不足10元呢？？</div>
-                            </div>
-                        </div>
-                    </div></div></div>
-                    <div class="bottomW"><div class="right"><div class="center"></div></div></div>
-                </div>
-                <div class="panel mtF7">
-                    <div class="topW"><div class="right"><div class="center"></div></div></div>
-                    <div class="centerW"><div class="right"><div class="center">
-                        <div class="msgInfo line2">
-                            <div class="msgType">
-                                <span class="icon weixin"></span>
-                                <div class="bubble">1</div>
-                            </div>
-                            <div class="message">
-                                <h1><span>12:10</span><strong>杨洋</strong></h1>
-                                <div>我的Iphone 4 越狱后无法上网了，请问怎么处理？</div>
-                            </div>
-                        </div>
-                    </div></div></div>
-                    <div class="bottomW"><div class="right"><div class="center"></div></div></div>
-                </div>
-                <div class="panel mtF7">
-                    <div class="topW"><div class="right"><div class="center"></div></div></div>
-                    <div class="centerW"><div class="right"><div class="center">
-                        <div class="msgInfo select">
-                            <div class="msgType">
-                                <span class="icon weixin"></span>
-                                <div class="bubble">1</div>
-                            </div>
-                            <div class="message">
-                                <h1><span>12:10</span><strong>王子希</strong></h1>
-                                <div>你好，你们的华为Ascend P1手机，有没有红色的？</div>
-                            </div>
-                        </div>
-                    </div></div></div>
-                    <div class="bottomW"><div class="right"><div class="center"></div></div></div>
-                </div> -->
             </div>
             <div class="section">
                 <div class="panel clientInfo">
                     <div class="topW"><div class="right"><div class="center"></div></div></div>
                     <div class="centerW"><div class="right"><div class="center">
                         <!--客户信息-->
-                        <div class="userInfoCont">
-                            <div class="userInfoItem show">
-                                <div class="flr">
-                                    <div class="serviceT">
-                                        <i></i><span>00:00:00</span>
-                                    </div>
-                                </div>
-                                <div class="leftSc"></div>
-                                <div class="photo"></div>
-                                <div class="info">
-                                    <p><span class="name"></span></p>
-                                    <p class="userStar">
-                                        <!--<span class="title">全球通</span>
-                                        <span class="bubble"></span>-->
-                                        <span class="star"></span>
-                                        <span class="star"></span>
-                                        <span class="star"></span>
-                                        <span class="star"></span>
-                                        <span class="star"></span>
-                                    </p>
-                                </div>
-                                <div class="info">
-                                    <span class="account"><span class="icon"></span></span>
-                                    <p class="pkgCur"></p>
-                                </div>
-                                <div class="info">
-                                    <p class="userLocal"></p>
-                                    <p class="feeState"></p>
-                                </div>
-                                <div class="info bol">
-                                    <p class="typesTool"> 
-                                        <span class="sms"></span>
-                                        <span class="weixin"></span>
-                                        <span class="weibo"></span>
-                                        <span class="feixin"></span>
-                                        <span class="email"></span>
-                                    </p>
-                                    <p class="moreInfo"><a>更多客户信息<span></span></a></p>
-                                </div> 
-                            </div>
-                        </div>
+                        <div class="userInfoCont"></div>
                         <!--客户信息-->
                     </div></div></div>
                     <div class="bottomW"><div class="right"><div class="center"></div></div></div>
@@ -258,27 +169,6 @@
         <div class="popBotC"></div>
     </div>
 </div>
-
-<script id="T_clientList" type="text/template">
-    {{#each this}}
-        <div class="panel mtF7">
-            <div class="topW"><div class="right"><div class="center"></div></div></div>
-            <div class="centerW"><div class="right"><div class="center">
-                <div class="msgInfo line2" cName="{{name}}" phoneNum="{{phoneNum}}" region="{{region}}" starLevel="{{starLevel}}" meal="{{meal}}" state="{{state}}" channel="{{channel}}">
-                    <div class="msgType">
-                        <span class="icon {{transChannel channel}}"></span>
-                        <div class="bubble">1</div>
-                    </div>
-                    <div class="message">
-                        <h1><span>12:10</span><strong>{{name}}</strong></h1>
-                        <div>{{message}}</div>
-                    </div>
-                </div>
-            </div></div></div>
-            <div class="bottomW"><div class="right"><div class="center"></div></div></div>
-        </div>
-    {{/each}}
-</script>
 <script src="src/assets/lib/requirejs/requirejs.min.js" data-main="src/assets/common/requirejsMain"></script>
 <script src="editor_config.js"></script>
 <script  src="editor_all.js"></script>

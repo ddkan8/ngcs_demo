@@ -2,7 +2,7 @@ define(['Util','js/index/header'],function (Util,header) {
 
 	//创建tab标签
 	var glbTab, glbTabArr = [], tabDefaultData, serviceTS = 0;
-	var client = null, clientIntro=null, content = null;
+	var client = null, clientIntro=null;
 
 	$(function(){
 		//获取tab页签信息
@@ -14,62 +14,24 @@ define(['Util','js/index/header'],function (Util,header) {
 			};
 		})
 
-		setTimeout(function(){
-			
-
-/*功能：
-    在页面上显示客户列表
-参数：
-    el 要绑定到页面上的dom节点选择器
-事件：
-    itemClick 话务员点击客户列表中客户时触发（列表首次初始化，默认触发）
-方法：
-    
-属性：
-*/
-			//客户列表
-			require(['js/index/client'], function(Client){
-				client = new Client({
-					el:'.layout .nav'
-				});
-				client.on('itemClick', function(e, data, index){
-					clientIntro.update(data);
-					createChartWrap(index);//创建聊天面板
-				});
-				//client.trigger('itemClick', {}, )
+		//客户列表
+		require(['js/index/client'], function(Client){
+			client = new Client({
+				el:'.layout .nav'
 			});
-			//客户介绍 
-			require(['js/index/clientIntro'], function(Intro){
-				if (!clientIntro){
-					clientIntro = new Intro({
-						el:'.layout .section .clientInfo'
-					});
-				}
-				
+			client.on('itemClick', function(e, data, index){
+				clientIntro.update(data);
+				createChartWrap(index);//创建聊天面板
 			});
-			/*
-			//选项卡内容区域
-			require(['content'], function(Content){
-				content = new Content({
-					el:'.layer'
+		});
+		//客户介绍 
+		require(['js/index/clientIntro'], function(Intro){
+			if (!clientIntro){
+				clientIntro = new Intro({
+					el:'.layout .section .clientInfo .userInfoCont'
 				});
-			})
-			*/
-		}, 200);
-
-		//翻译渠道名称
-		Util.hdb.registerHelper('transChannel', function(val) {
-			if(val === '1') {
-				return 'sms';
-			}else if(val === '2'){
-				return 'weixin';
-			}else if(val === '3'){
-				return 'weibo';
-			}else if(val === '4'){
-				return 'feixin';
-			}else if(val === '5'){
-				return 'email';
 			}
+			
 		});
 
 		//微博渠道加关注
@@ -90,24 +52,6 @@ define(['Util','js/index/header'],function (Util,header) {
 			$(".serviceT > span").text(dstr);
 		},1000)
 
-		//收缩侧栏
-		$(".leftSc").on('click', function(){
-			if ($("#content .content .nav").width() == '50') {
-				$("#content .content .nav").animate({width:"245px"},100);
-				$(".chatWarp .content .chatLeft .items .msgCont").animate({width:"530px"},100);
-		        $(".chatBox").animate({width:"706px"},100);
-				$(".leftSc").removeClass("sc2");
-				//交谈框自适应
-				$("div.edui-editor.edui-default").width("auto");
-			}else{
-				$("#content .content .nav").animate({width:"50px"},100);
-				$(".chatWarp .content .chatLeft .items .msgCont").animate({width:"740px"},100);
-				$(".chatBox").animate({width:"901px"},100);
-				$(".leftSc").addClass("sc2");
-				//交谈框自适应
-				$("div.edui-editor.edui-default").width("auto");
-			}
-		});
 
 		header(glbTab);//加载菜单
 

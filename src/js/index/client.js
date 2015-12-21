@@ -17,7 +17,6 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
         Util.eventTarget.call(this);
         this.options = options;
         setTimeout($.proxy(function(){
-            // console.log(tpl)
             this.$el = $(this.options.el);
             this.eventInit();
             this.listInit();
@@ -38,7 +37,6 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
                 $msgInfo.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
                 //$msgInfo.find(".bubble").hide();
             },this));
-            
         }, 
         listInit:function(){
             Util.svMap.add('clientInfo','clientInfo.json','');
@@ -46,13 +44,13 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
                 this.json = json;
                 if (status) {
                     this.$el.html(this.template(json));
+                    if (json && json.beans && json.beans.length){
+                        var itemData = json.beans[0];
+                        this.trigger('itemClick', {}, itemData, 0);
+                        $('#J_clientList>.panel').eq(0).find('.msgInfo').addClass("select");
+                    }
                 }else{
                     console.log('客户列表初始化失败.')
-                }
-                if (json && json.beans && json.beans.length){
-                    var itemData = json.beans[0];
-                    this.trigger('itemClick', {}, itemData, 0);
-                    $('#J_clientList>.panel').eq(0).find('.msgInfo').addClass("select");
                 }
             }, this));
         }
