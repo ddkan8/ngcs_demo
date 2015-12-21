@@ -6,16 +6,15 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
         Util.eventTarget.call(this);
         this.options = options;
         setTimeout($.proxy(function(){
-            console.log(tpl)
             this.$el = $(this.options.el);
             this.eventInit();
             this.listInit();
-        }, this), 100);
+        }, this), 200);
         
     }
     
     $.extend(objClass.prototype, Util.eventTarget.prototype, {
-        constructor:objClass, 
+        //constructor:objClass, 
         template:Util.hdb.compile(tpl),
         eventInit:function(){
             this.$el.on('click','#J_clientList>.panel', $.proxy(function(e){
@@ -33,7 +32,11 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
                 if (status) {
                     this.$el.html(this.template(json));
                 }else{
-                    //console.log('trigger error.')
+                    console.log('客户列表初始化失败.')
+                }
+                if (json && json.beans && json.beans.length){
+                    var itemData = json.beans[0];
+                    this.trigger('itemClick', {}, itemData);
                 }
             }, this));
         }
