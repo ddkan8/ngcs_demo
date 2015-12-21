@@ -2,24 +2,24 @@
 define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
 
     var objClass = function(options){
-        
         Util.eventTarget.call(this);
         this.options = options;
         setTimeout($.proxy(function(){
+            // console.log(tpl)
             this.$el = $(this.options.el);
             this.eventInit();
             this.listInit();
-        }, this), 200);
+        }, this), 100);
         
     }
     
     $.extend(objClass.prototype, Util.eventTarget.prototype, {
-        //constructor:objClass, 
+        constructor:objClass, 
         template:Util.hdb.compile(tpl),
         eventInit:function(){
-            this.$el.on('click','#J_clientList>.panel', $.proxy(function(e){
+            this.$el.on('click','#J_clientList .panel .msgInfo', $.proxy(function(e){
                 var $src = $(e.currentTarget);
-                var index = $src.index();
+                var index = $src.parents('.panel').index();
                 var data = this.json.beans[index];
                 //{ e:e, data:data} 
                 this.trigger('itemClick', e, data);
@@ -32,11 +32,7 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
                 if (status) {
                     this.$el.html(this.template(json));
                 }else{
-                    console.log('客户列表初始化失败.')
-                }
-                if (json && json.beans && json.beans.length){
-                    var itemData = json.beans[0];
-                    this.trigger('itemClick', {}, itemData);
+                    //console.log('trigger error.')
                 }
             }, this));
         }

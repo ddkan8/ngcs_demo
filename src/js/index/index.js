@@ -411,7 +411,7 @@ define(['Util','js/index/header'],function (Util,header) {
 		//removeUe();
 		var $div = $("<div class='weiboUe'/>");
 		$warp.append($div);
-		$div.load("pages/ue.html",function(){
+		$div.load("src/module/index/ue.html",function(){
 			//刷新滚动条
 			var $chatWarp = $div.parents(".chatWarp");
 			var $items = $chatWarp.find(".items");
