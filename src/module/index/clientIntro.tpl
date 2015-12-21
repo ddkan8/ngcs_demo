@@ -25,7 +25,7 @@
         </div>-->
         <div class="serviceT">
             <i></i>
-            <span>00:05:48</span>
+            <span>00:00:00</span>
         </div>
     </div>
     <div class="leftSc"></div>

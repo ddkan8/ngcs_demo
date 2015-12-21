@@ -16,12 +16,9 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
     var objClass = function(options){
         Util.eventTarget.call(this);
         this.options = options;
-        setTimeout($.proxy(function(){
-            this.$el = $(this.options.el);
-            this.eventInit();
-            this.listInit();
-        }, this), 100);
-        
+        this.$el = $(this.options.el);
+        this.listInit();
+        this.eventInit();
     }
     
     $.extend(objClass.prototype, Util.eventTarget.prototype, {
@@ -40,7 +37,7 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
         }, 
         listInit:function(){
             Util.svMap.add('clientInfo','clientInfo.json','');
-            Util.ajax.postJsonAsync(Util.svMap.get('clientInfo'),'',$.proxy(function(json,status){
+            Util.ajax.postJson(Util.svMap.get('clientInfo'),'',$.proxy(function(json,status){
                 this.json = json;
                 if (status) {
                     this.$el.html(this.template(json));

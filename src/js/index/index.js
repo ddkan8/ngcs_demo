@@ -45,13 +45,12 @@ define(['Util','js/index/header'],function (Util,header) {
 			$("#weiboAttention").hide(0);
 		});
 		
-		//进入系统后的计时器
-		setInterval(function(){
-			serviceTS = serviceTS + 1;
-			var dstr = secondsFormatStr(serviceTS);
-			$(".serviceT > span").text(dstr);
-		},1000)
-
+		// //进入系统后的计时器
+		// setInterval(function(){
+		// 	serviceTS = serviceTS + 1;
+		// 	var dstr = secondsFormatStr(serviceTS);
+		// 	$(".serviceT > span").text(dstr);
+		// },1000)
 
 		header(glbTab);//加载菜单
 
@@ -132,19 +131,6 @@ define(['Util','js/index/header'],function (Util,header) {
 		});
 	}
 
-	//工作时间
-	function secondsFormatStr(seconds, guide) {
-		guide = guide || seconds;
-		var s = Math.floor(seconds % 60),
-		m = Math.floor(seconds / 60 % 60),
-		h = Math.floor(seconds / 3600),
-		gm = Math.floor(guide / 60 % 60),
-		gh = Math.floor(guide / 3600);
-		h = (h > 0 || gh > 0) ? h + ":" : "00:";			
-		m = m > 0 ? ((m < 10 ? "0" + m : m) + ":") : "00:";		
-		s = (s < 10) ? "0" + s : s;			
-		return h + m + s;
-	}
 	//创建选择的客户对应的业务面板
 	function createChartWrap(index){
 		var $chatWarp = $("#chatWarpContainer .chatWarp[dec='"+index+"']");
@@ -540,3 +526,19 @@ setTimeout(function(){
 		});
 	}
 	*/
+
+	
+
+	/*//工作时间
+	function secondsFormatStr(seconds, guide) {
+		guide = guide || seconds;
+		var s = Math.floor(seconds % 60),
+		m = Math.floor(seconds / 60 % 60),
+		h = Math.floor(seconds / 3600),
+		gm = Math.floor(guide / 60 % 60),
+		gh = Math.floor(guide / 3600);
+		h = (h > 0 || gh > 0) ? h + ":" : "00:";			
+		m = m > 0 ? ((m < 10 ? "0" + m : m) + ":") : "00:";		
+		s = (s < 10) ? "0" + s : s;			
+		return h + m + s;
+	}*/
