@@ -59,11 +59,11 @@
                 </div>
                 <div class="info bol">
                     <p class="typesTool">
-                        <span class="sms"></span>
-                        <span class="weixin appCur"></span>
-                        <span class="weibo appCur"></span>
-                        <span class="feixin"></span>
-                        <span class="email"></span>
+                        <span class="sms{{#if_eq channel compare=1}} appCur{{/if_eq}}"></span>
+                        <span class="weixin{{#if_eq channel compare=2}} appCur{{/if_eq}}"></span>
+                        <span class="weibo{{#if_eq channel compare=3}} appCur{{/if_eq}}"></span>
+                        <span class="feixin{{#if_eq channel compare=4}} appCur{{/if_eq}}"></span>
+                        <span class="email{{#if_eq channel compare=5}} appCur{{/if_eq}}"></span>
                     </p>
                     <p class="moreInfo"><a>更多客户信息<span></span></a></p>
                 </div>
