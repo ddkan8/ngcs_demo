@@ -33,6 +33,8 @@ define(['Util','js/index/header'],function (Util,header) {
 			}
 			
 		});
+		
+		header(glbTab);//加载菜单
 
 		//微博渠道加关注
 		$("#content").on("click.weibo",".typesTool .weibo",function(){
@@ -44,15 +46,6 @@ define(['Util','js/index/header'],function (Util,header) {
 		$("#weiboAttention").on("click.weibo",".btnsCon .greenBtn",function(){
 			$("#weiboAttention").hide(0);
 		});
-		
-		// //进入系统后的计时器
-		// setInterval(function(){
-		// 	serviceTS = serviceTS + 1;
-		// 	var dstr = secondsFormatStr(serviceTS);
-		// 	$(".serviceT > span").text(dstr);
-		// },1000)
-
-		header(glbTab);//加载菜单
 
 		//demo
 		$("#content .nav > .panel:eq(2)").hide();
@@ -70,38 +63,8 @@ define(['Util','js/index/header'],function (Util,header) {
 			});
 		},3000);
 
-		// interSetTime();
+		// Util.busiComm.interSetTime(0);
 
-		//点击下一个请求
-		$(".tirggerRequest").click(function(e){
-			var time = [];
-			$("#content .nav > .panel:not(0) .msgInfo .message h1 span").each(function(index, element) {
-	            var $this = $(this);
-				var text = $this.text();
-				var str = text.split(":");
-				var minutes = parseInt(str[0]);
-				var seconds = parseInt(str[1]);
-				var date = new Date();
-				var odd = new Date(date.getYear(),date.getMonth(),date.getDay(),date.getHours(),minutes,seconds);
-				time.push(odd.getTime());
-	        });
-			var nextIndex = 0;
-			var temp = time[0];
-			for(var i=1;i<time.length;i++){
-				if(temp<time[i]){
-					temp = time[i];
-					nextIndex = i;
-				}
-			}
-			nextIndex = nextIndex+2;
-			$("#content .nav > .panel").eq(nextIndex).find(".msgInfo").click();
-		})
-
-		//查看历史
-	  	$("#content .centerW .seeHistory").click(function(){
-			 seeHistoryFn();
-			 return false;
-		});
 	})
 
 	
@@ -302,26 +265,6 @@ define(['Util','js/index/header'],function (Util,header) {
 			},500);
 		}
 	}
-	var seeHistory;
-	function seeHistoryFn(){
-		seeHistory = new ucd.PopWin({
-			title: '查看历史',
-			isMode:true,
-			isHandFlex:false,
-			closeAction:"hide",
-			width:925,
-			loadType:"ajax",
-			url:"pages/popwin/seeHistory.html",
-			btns:'<a class="grayBtn" href="javascript:void(0);"><span><b>关闭</b></span></a>',
-			callback:function(){
-				var self = this;
-				self.$dom.delegate(".popWin .closeBtn, .popWin .buttons .greenBtn, .popWin .buttons .grayBtn","click",function(){
-					self.remove();
-				});
-			}
-		});
-		seeHistory.show();
-	} 
 	//微博回复数据
 	var weiboCostemerCount = 0;
 	var weiboCostemerMsg = [
@@ -527,7 +470,7 @@ setTimeout(function(){
 	}
 	*/
 
-	
+
 
 	/*//工作时间
 	function secondsFormatStr(seconds, guide) {

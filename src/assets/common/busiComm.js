@@ -86,11 +86,11 @@ define(['Util'],function(Util){
 		return scrollbar;
 	}
 	//时间计时
-	var interSetTime = function(index){
+	var interSetTime = function(index,obj){
 		if(window.initinterSetTime){
 			if(index+""){
 				window.clearInterval(window.initinterSetTime[index]);
-				$("#content .nav > .panel:gt(1)").eq(index).find(".msgInfo .message h1 span").each(function(i, element) {
+				obj.find("#J_clientList .panel").eq(index).find(".msgInfo .message h1 span").each(function(i, element) {
                     var $this = $(this);
 					var text = $this.text();
 					var str = text.split(":");
@@ -116,7 +116,7 @@ define(['Util'],function(Util){
 			}
 		}else{
 			window.initinterSetTime = [];
-			var $span = $("#content .nav > .panel:gt(1) .msgInfo .message h1 span");
+			var $span = obj.find("#J_clientList .panel .msgInfo .message h1 span");
 			$span.each(function(i, element) {
 				var $this = $(this);
 				var text = $this.text();
@@ -133,7 +133,6 @@ define(['Util'],function(Util){
 					var sText = s<10?"0"+s:s;
 					$this.text(mText+":"+sText);
 				},1000)
-				
 				window.initinterSetTime.push(inter);
 			});
 		}

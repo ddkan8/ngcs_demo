@@ -29,7 +29,7 @@
                     <!--<div class="bubble strong"></div>-->
                 </div>
                 <div class="message">
-                    <h1><span style="display: none;">18:27</span><strong>{{name}}</strong></h1>
+                    <h1><span>00:00</span><strong>{{name}}</strong></h1>
                     <div>{{message}} </div>
                 </div>
             </div>
