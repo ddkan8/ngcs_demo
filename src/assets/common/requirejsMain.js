@@ -12,6 +12,7 @@ require.config({
 		'text' : 'assets/lib/requirejs/text',
 		'jquery' : 'assets/lib/jquery/jquery_1.11.3',
 		'hdb' : 'assets/lib/handlebars/handlebars_v4.0.4',
+		'hdbHelper' : 'assets/lib/handlebars/helpers',
 		'json2' : 'assets/lib/json2/json2',
 		'pagination':'assets/lib/pagination/1.2.1/jquery.pagination',
 		'blockUI' : 'assets/lib/blockUI/2.64/jquery.blockUI.min',
@@ -28,6 +29,12 @@ require.config({
 	},
 	waitSeconds:0,
 	shim:{
+		'hdb':{
+			exports:['Handlebars']
+		},
+		'hdbHelper':{
+			deps:['hdb']
+		},
 		'ajax':{
 			deps:['jquery']
 		},

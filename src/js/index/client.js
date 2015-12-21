@@ -1,4 +1,16 @@
 
+/*
+功能：
+    在页面上显示客户列表
+参数：
+    el 要绑定到页面上的dom节点选择器
+事件：
+    itemClick 话务员点击客户列表中客户时触发（列表首次初始化，默认触发）
+方法：
+    
+属性：
+    
+*/
 define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
 
     var objClass = function(options){
@@ -22,8 +34,17 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
                 var index = $src.index();
                 var data = this.json.beans[index];
                 //{ e:e, data:data} 
-                this.trigger('itemClick', e, data);
+                var $src = $(e.currentTarget);
+                var index = $src.index();
+                if (index<0){
+                    index = 0;
+                }
+                this.trigger('itemClick', e, data,index);
+                var $msgInfo = $src.find('.msgInfo');
+                $msgInfo.addClass("select").parents(".panel").siblings().find(".msgInfo").removeClass("select");
+                $msgInfo.find(".bubble").hide();
             },this));
+            
         }, 
         listInit:function(){
             Util.svMap.add('clientInfo','clientInfo.json','');
@@ -36,7 +57,8 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
                 }
                 if (json && json.beans && json.beans.length){
                     var itemData = json.beans[0];
-                    this.trigger('itemClick', {}, itemData);
+                    
+                    this.trigger('itemClick', {}, itemData, 0);
                 }
             }, this));
         }

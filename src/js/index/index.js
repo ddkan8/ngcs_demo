@@ -15,29 +15,34 @@ define(['Util','js/index/header'],function (Util,header) {
 		})
 
 		setTimeout(function(){
+			
+
+/*功能：
+    在页面上显示客户列表
+参数：
+    el 要绑定到页面上的dom节点选择器
+事件：
+    itemClick 话务员点击客户列表中客户时触发（列表首次初始化，默认触发）
+方法：
+    
+属性：
+*/
 			//客户列表
 			require(['js/index/client'], function(Client){
 				client = new Client({
-					el:'.layout .nav', 
-					itemClick:function(){
-
-					}
+					el:'.layout .nav'
 				});
-				client.on('itemClick', function(e, data){
+				client.on('itemClick', function(e, data, index){
 					clientIntro.update(data);
-					var $src = $(e.currentTarget);
-					var index = $src.index();
-					if (index<0){
-						index = 0;
-					}
 					createChartWrap(index);//创建聊天面板
 				});
+				//client.trigger('itemClick', {}, )
 			});
 			//客户介绍 
 			require(['js/index/clientIntro'], function(Intro){
 				if (!clientIntro){
 					clientIntro = new Intro({
-						el:'.layout .section .clientInfo', 
+						el:'.layout .section .clientInfo'
 					});
 				}
 				
