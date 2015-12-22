@@ -1,8 +1,9 @@
-define(['Util','js/index/header'],function (Util,header) {
+define(['Util','js/index/header','js/index/client', 'js/index/clientIntro', 'js/index/main'],
+	function (Util,header,Client,Intro, Main) {
 
 	//创建tab标签
 	var glbTab, glbTabArr = [], tabDefaultData, serviceTS = 0;
-	var client = null, clientIntro=null;
+	var client = null, clientIntro=null, main=null;
 
 	$(function(){
 		//获取tab页签信息
@@ -12,24 +13,34 @@ define(['Util','js/index/header'],function (Util,header) {
 			if (status) {
 				tabDefaultData = json;
 			};
-		})
-
-		//客户列表和客户介绍
-		require(['js/index/client', 'js/index/clientIntro'], function(Client,Intro){
-			client = new Client({
-				el:'.layout .nav'
-			});
-			if (!clientIntro){
-				clientIntro = new Intro({
-					el:'.layout .section .clientInfo .userInfoCont'
-				});
-			}
-			client.on('itemClick', function(e, data, index){
-				clientIntro.update(data);
-				createChartWrap(index);//创建聊天面板
-			});
 		});
+
+		//客户列表
+		client = new Client({
+			el:'.layout .nav'
+		});
+		client.on('itemClick', function(e, data, index){
+			clientIntro.update(data);
+			if (!main.hasPanel(data.phoneNum)){
+				main.createChartWrap(data);
+			}else{
+				main.showChartWrap(data.phoneNum);
+			}
+			//main.createTab('111', 'js/temp/knowledge');
+			//createChartWrap(index);//创建聊天面板
+		});
+		//客户介绍
+		clientIntro = new Intro({
+			el:'.layout .section .clientInfo .userInfoCont'
+		});
+		clientIntro.on('moreInfo', function(){
+			main.createTab('更多客户信息', 'js/temp/moreClientInfo');
+		});
+		//内容选项卡区域
+		main = new Main({ el:'#chatWarpContainer' });
 		
+		
+
 		header(glbTab);//加载菜单
 
 		//微博渠道加关注
@@ -59,36 +70,7 @@ define(['Util','js/index/header'],function (Util,header) {
 			});
 		},3000);
 
-		// Util.busiComm.interSetTime(0);
-
-	})
-
-	
-
-	//休息与微博弹出菜单
-	var popupLayoutMenuInit = function(){
-		require(['js/index/popLayoutWaep'], function(Waep){
-			var busyMenu = new Waep({
-				el:'.layout .menu .busy', 
-				menus:[
-					{ text:'休息', click:function(e){ console.log('pause') } }, 
-					{ text:'整理延长', click:function(e){ console.log('extend') } }, 
-					{ text:'签出', click:function(e){ console.log('checkOut') } }, 
-				]
-			});
-			var callOutMenu = new Waep({
-				el:'.layout .menu .callOut', 
-				menus:[
-					{ text:'微博1', click:function(e){ console.log('mic blog') } }, 
-					{ text:'邮件', click:function(e){ console.log('mail') } }, 
-					{ text:'短信', click:function(e){ console.log('msg') } }, 
-				]
-			});
-			callOutMenu.addListener('initialize', function(){
-				console.log('initialized...')
-			});
-		});
-	}
+	});
 
 	//创建选择的客户对应的业务面板
 	function createChartWrap(index){
@@ -332,6 +314,33 @@ define(['Util','js/index/header'],function (Util,header) {
 
 
 /*
+
+
+	//休息与微博弹出菜单
+	var popupLayoutMenuInit = function(){
+		require(['js/index/popLayoutWaep'], function(Waep){
+			var busyMenu = new Waep({
+				el:'.layout .menu .busy', 
+				menus:[
+					{ text:'休息', click:function(e){ console.log('pause') } }, 
+					{ text:'整理延长', click:function(e){ console.log('extend') } }, 
+					{ text:'签出', click:function(e){ console.log('checkOut') } }, 
+				]
+			});
+			var callOutMenu = new Waep({
+				el:'.layout .menu .callOut', 
+				menus:[
+					{ text:'微博1', click:function(e){ console.log('mic blog') } }, 
+					{ text:'邮件', click:function(e){ console.log('mail') } }, 
+					{ text:'短信', click:function(e){ console.log('msg') } }, 
+				]
+			});
+			callOutMenu.addListener('initialize', function(){
+				console.log('initialized...')
+			});
+		});
+	}
+
 setTimeout(function(){
 			require(['js/index/client'], function(Client){
 				client = new Client({

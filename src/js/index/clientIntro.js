@@ -12,6 +12,7 @@ define(['Util', 'text!module/index/clientIntro.tpl'], function(Util, tpl){
         constructor:objClass,
         template:Util.hdb.compile(tpl),
         eventInit:function(){
+            this.$el.on('click', '.info .moreInfo', $.proxy(this.moreInfo, this));
             //收缩侧栏
             this.$el.on('click','.leftSc', function(){
                 if ($("#content .content .nav").width() == '50') {
@@ -36,6 +37,9 @@ define(['Util', 'text!module/index/clientIntro.tpl'], function(Util, tpl){
                 var dstr = secondsFormatStr(serviceTS);
                 this.$el.find(".serviceT > span").text(dstr);
             },this),1000);
+        },
+        moreInfo:function(e){
+            this.trigger('moreInfo', e);
         },
         update:function(data){
             this.$el.html(this.template(data));

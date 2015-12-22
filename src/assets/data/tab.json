@@ -3,7 +3,8 @@
 	"returnMessage":"",
 	"selectedIndex":0,
 	"items":[
-		{"title":"客户信息首页","dom":"indSpace","isFrame":false,"closeable":false,"url":"js/index/content"},
+		{"title":"知识库","dom":"indSpace","isFrame":false,"closeable":false,"url":"js/temp/knowledge"},
+    	{"title":"客户信息首页","dom":"indSpace","isFrame":false,"closeable":false,"url":"js/index/content"},
 		{"title":"账单","dom":"indSpace","isFrame":false,"closeable":false,"url":"src/module/index/bill.tpl"},
 		{"title":"业务办理","dom":"indSpace","isFrame":false,"closeable":false,"url":""},
 		{"title":"通知模板维护","dom":"indSpace","isFrame":false,"closeable":false,"url":"pages/commonSearch.html"},
