@@ -944,6 +944,7 @@ define([''],function(){
 			}else{
 				// this.$body.load(_url);
 				var self = this.$body;
+				require.undef(_url);
 				var _html = require([_url], function(_html){
 					self.html(_html.content);
 				});

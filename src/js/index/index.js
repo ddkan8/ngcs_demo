@@ -14,24 +14,20 @@ define(['Util','js/index/header'],function (Util,header) {
 			};
 		})
 
-		//客户列表
-		require(['js/index/client'], function(Client){
+		//客户列表和客户介绍
+		require(['js/index/client', 'js/index/clientIntro'], function(Client,Intro){
 			client = new Client({
 				el:'.layout .nav'
 			});
-			client.on('itemClick', function(e, data, index){
-				clientIntro.update(data);
-				createChartWrap(index);//创建聊天面板
-			});
-		});
-		//客户介绍 
-		require(['js/index/clientIntro'], function(Intro){
 			if (!clientIntro){
 				clientIntro = new Intro({
 					el:'.layout .section .clientInfo .userInfoCont'
 				});
 			}
-			
+			client.on('itemClick', function(e, data, index){
+				clientIntro.update(data);
+				createChartWrap(index);//创建聊天面板
+			});
 		});
 		
 		header(glbTab);//加载菜单
