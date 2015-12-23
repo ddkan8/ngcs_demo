@@ -947,9 +947,14 @@ define([''],function(){
 				// this.$body.load(_url);
 				var self = this.$body;
 				require.undef(_url);
-				var _html = require([_url], function(_html){
-					self.html(_html.content);
-				});
+				var _html = require([_url], $.proxy(function(_html){
+					if (typeof(_html) === 'function'){
+						self.html(_html(this.data && this.data._index || {}));
+					}else{
+						self.html(_html.content);
+					}
+					
+				}, this));
 			}
 			
 			//已加载标志

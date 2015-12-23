@@ -37,7 +37,7 @@ define(['Util','js/index/header','js/index/client', 'js/index/clientIntro', 'js/
 			main.createTab('更多客户信息', 'js/temp/moreClientInfo');
 		});
 		//内容选项卡区域
-		main = new Main({ el:'#chatWarpContainer' });
+		main = new Main({ el:'#chatWarpContainer', _index:{ client:client, clientIntro:clientIntro } });
 		
 		
 

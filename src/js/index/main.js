@@ -22,6 +22,9 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
     var objClass = function(options){
         Util.eventTarget.call(this);
         this.options = options;
+        $.extend(this.options._index, {
+            main:this
+        })
         this.$el = $(this.options.el);
         this.clientPanels = {}
         //获取tab页签信息
@@ -84,7 +87,8 @@ define(['Util', 'text!module/index/client.tpl'], function(Util, tpl){
             //"#tabs_"+index
             this.currentPanel = this.clientPanels[data.phoneNum] = {
                 $chatWarp:$chatWarp,
-                glbTab:new Util.tabs({ container:$chatWarp.find('.tabs'), data:this.tabsJSON })
+                glbTab:new Util.tabs({ container:$chatWarp.find('.tabs'), data:this.tabsJSON, 
+                    _index:this.options._index })
             }
             //glbTab.chatWarpIndex = index;
             //glbTabArr.push(glbTab);
