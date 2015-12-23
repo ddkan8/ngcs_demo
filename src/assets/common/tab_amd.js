@@ -538,7 +538,9 @@ define([''],function(){
 		//下面的接口不建议公开
 		validateParamType:function(obj){
 			if(!obj) return;
-			if(typeof obj=="string"&&obj.indexOf("#")==-1&&obj.indexOf(".")==-1&&obj.indexOf(":")==-1&&$(obj).length == 0){
+			if (typeof(object) == 'object'){
+				return obj;
+			} else if(typeof obj=="string"&&obj.indexOf("#")==-1&&obj.indexOf(".")==-1&&obj.indexOf(":")==-1&&$(obj).length == 0){
 				obj = $("#"+obj);
 			} else {
 				obj = $(obj);
