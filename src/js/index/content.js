@@ -1,37 +1,48 @@
-define(['Util','text!module/index/content.tpl'], function(Util, content){
+define(['Util','text!module/index/content.tpl'], function(Util, tpl){
+
 	var costemerIndex = 0;
 	var costemer;
-	$(function(){
-		var $chatWarp = $(".chatWarp[dec='"+window.chatWarpIndex+"']");
-		if(window.chatWarpIndex != 1){
+	
+	var initialize = function(index){
+		var template = Util.hdb.compile(tpl);
+		var params = {
+			client:index.client.currentClientData
+		}
+		var $content = $(template(params));
+		setTimeout(function(){
+			var ue = UE.getEditor("editor_rep_"+params.client.phoneNum);
+		},100)
+		//return '<script id="editor_rep_'+params.client.phoneNum+'"></script>';
+		//return $content;
+		/*if(window.chatWarpIndex != 1){
 			$(".navText ul").hide();
 		}else{
 			$(".navText ul").show();
-		}
+		}*/
 		//右边菜单栏按钮hover样式
-		$("#content .section .userInfoCont .actionItems a").hover(function(e){
+		$(".section .userInfoCont .actionItems a",$content).hover(function(e){
 			$(this).addClass("hover").siblings().removeClass("hover");
 		},function(e){
 			$(this).removeClass("hover").siblings().removeClass("hover");
 		})
 		//点击余额提醒
-		$chatWarp.find(".remind").click(function(e){
-			switchTab("短信提醒余额");
+		$content.find(".remind").click(function(e){
+			index.main.createTab("短信提醒余额");
 		});
 		//点击未完工单提醒
-		$chatWarp.find(".remindOrder").click(function(e){
-			switchTab("未完工单提醒");
+		$content.find(".remindOrder").click(function(e){
+			index.main.createTab("未完工单提醒");
 		});
 		//点击反馈提醒
-		$chatWarp.find(".feedback").click(function(e){
-			switchTab("反馈");
+		$content.find(".feedback").click(function(e){
+			index.main.createTab("反馈");
 		});
 		//点击查看消费记录
-		$chatWarp.find(".viewRecord").click(function(e){
-			switchTab("查看消费记录");
+		$content.find(".viewRecord").click(function(e){
+			index.main.createTab("查看消费记录");
 		});
 		//右边业务选项点击
-		$chatWarp.find(".content .chatRight h1").click(function(){
+		$content.find(".chatRight h1").click(function(){
 			var $self = $(this);		
 			var $next = $self.next(".childres");
 			var delay = 500;
@@ -39,7 +50,7 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 			$self.toggleClass("hide");
 		});
 		//右边业务 上更多链接点击
-		$chatWarp.find(".content .chatRight h1 .more").click(function(e){
+		$content.find(".chatRight h1 .more").click(function(e){
 			alert("more");
 			e.preventDefault();
 			e.stopPropagation();
@@ -59,21 +70,21 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 			});	
 		}
 		//右边业务 逻辑业务中 更多 链接点击
-		$chatWarp.find(".content .chatRight .childBar .more").click(function(e){		
+		$content.find(".chatRight .childBar .more").click(function(e){		
 			showMore($(this).parent());
 			e.preventDefault();
 			e.stopPropagation();
 		});	
 		//点击交谈框上面的li切换样式
-		$chatWarp.find(".chatTitle ul li").click(function(e){
+		$content.find(".chatTitle ul li").click(function(e){
 			$(this).addClass("on").siblings().removeClass("on");
 		})
 		//提示关闭按钮
-		$chatWarp.find(".tipBar a.close").click(function(){
+		$content.find(".tipBar a.close").click(function(){
 			$(this).parent().slideUp(500);
 		})
 		//右边业务列表的li切换样式
-		$chatWarp.find(".childres .bussList li").click(function(e){
+		$content.find(".childres .bussList li").click(function(e){
 			$(this).addClass("on").siblings().removeClass("on");
 			var index = $(this).index();
 			var $items = $(this).parents(".childres").find(".bussItem").eq(index);
@@ -81,7 +92,7 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 		})
 		
 		var over = function(e){		
-				$(".chatWarp .content .chatRight .childres .expect tr").removeClass("tableHover");
+				$(".chatRight .childres .expect tr",$content).removeClass("tableHover");
 				$(this).addClass("tableHover");	
 				var offset = $(this).offset();
 				$("#historyList").show();
@@ -112,18 +123,18 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 		}).bind("mouseleave.historyList",function(){
 			$(this).children(".date").trigger("mouseleave.historyList");
 		});*/
-		$("#historyList").hover(function(e){},function(e){$(this).hide();$(".chatWarp .content .chatRight .childres .expect tr").removeClass("tableHover");});
+		$("#historyList").hover(function(e){},function(e){$(this).hide();$(".chatRight .childres .expect tr",$content).removeClass("tableHover");});
 		//历史记录详情单关闭按钮
-		$(".historyList a.close").click(function(e){
+		$(".historyList a.close",$content).click(function(e){
 			$(this).parents(".historyList").hide();
 			e.stopPropagation();
 		})	
-		$("#editor",$(content)).attr("id","editor_"+window.chatWarpIndex);
+		$("#editor",$content).attr("id","editor_"+window.chatWarpIndex);
 		//实例化编辑器
-	    var ue = UE.getEditor("editor_"+window.chatWarpIndex);
+	    //var ue = UE.getEditor("editor_"+window.chatWarpIndex);
 		
 		//自动级联输入
-	    ue.addListener('focus',function(e){
+	    /*ue.addListener('focus',function(e){
 	        this.setContent("");
 			var text = ue.getContent();
 			if(/请问/.test(text)){
@@ -133,6 +144,7 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 				$(".capacityPrompt").hide(0);
 			}
 	    });
+
 		$(".capacityPrompt",top.document).undelegate("li","mousedown.capacityPrompt").delegate("li","mousedown.capacityPrompt",function(e){
 			var text = $(this).text();
 			if(text+""){
@@ -144,29 +156,7 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 				$(".capacityPrompt").hide(0);
 			},100);
 	    });
-		//加载快捷菜单
-		// var pop8 = new ucd.PopLayout({
-		// 	container:$chatWarp.find(".tab li"),
-		// 	dataType:"url",
-		// 	action:'click',
-		// 	content:'pages/tabmenu.html'
-		// });
-		Util.tips({
-			container:$chatWarp.find(".tab li"),
-			dataType:"url",
-			action:'click',
-			content:'module/index/tabmenu.html'
-		});
-		//点击 客户轨迹 Iphone5 手机
-		$chatWarp.find(".navText .shopping").click(function(e){
-			switchTab(" Iphone5 手机","pages/shopping.html");
-		})
-		//加载微博选择渠道
-		/*var popWeiBo = new ucd.PopLayout({
-			container:$chatWarp.find(".chatTitle .weiboContainer"),		
-			content:'<ul class="toolMen ch2 weiboChoose"><li><a href="javascript:void(0);" class="twitter">Twitter</a></li><li><a href="javascript:void(0);" class="facebook">Facebook</a></li></ul>'
-		});	*/
-		ue.addListener('keyup',function(e){
+	    ue.addListener('keyup',function(e){
 			var text = ue.getContent(); 
 			if(/请问/.test(text)){
 				var offset = $("#editor_"+window.chatWarpIndex).offset();
@@ -175,6 +165,31 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 				$(".capacityPrompt").hide(0);
 			}
 	    });
+	    */
+
+		//加载快捷菜单
+		// var pop8 = new ucd.PopLayout({
+		// 	container:$chatWarp.find(".tab li"),
+		// 	dataType:"url",
+		// 	action:'click',
+		// 	content:'pages/tabmenu.html'
+		// });
+		Util.tips({
+			container:$content.find(".tab li"),
+			dataType:"url",
+			action:'click',
+			content:'module/index/tabmenu.html'
+		});
+		//点击 客户轨迹 Iphone5 手机
+		$content.find(".navText .shopping").click(function(e){
+			index.main.createTab(" Iphone5 手机","pages/shopping.html");
+		})
+		//加载微博选择渠道
+		/*var popWeiBo = new ucd.PopLayout({
+			container:$chatWarp.find(".chatTitle .weiboContainer"),		
+			content:'<ul class="toolMen ch2 weiboChoose"><li><a href="javascript:void(0);" class="twitter">Twitter</a></li><li><a href="javascript:void(0);" class="facebook">Facebook</a></li></ul>'
+		});	*/
+		
 		//演示使用
 		costemerIndexMap = [0,0,0,0,0,0];
 		costemer = [{
@@ -248,21 +263,21 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 		if(window.chatWarpIndex == 4){
 			clickCount = 0;
 		}
-		$chatWarp.find(".sendBtn").unbind("click").bind("click",function(){
-			var html = UE.getEditor("editor_"+window.chatWarpIndex).getAllHtml();
-			var $chatWarp = $(this).parents(".chatWarp");
+		$content.find(".sendBtn").unbind("click").bind("click",function(){
+			var html = UE.getEditor("editor_rep_" + params.client.phoneNum).getAllHtml();
+			//var $content = $(this).parents(".content");
 			var o = {
 				time:"09:16:10:100",
 				type:1,
 				cont:{time:"08:16",name:'',msg:html,type:'feixin'}
 			}
 			//演示第一个的时候使用飞信渠道回复
-			if(window.chatWarpIndex == 0){
+			/*if(window.chatWarpIndex == 0){
 				o.cont.type = "feixin";
-			}
+			}*/
 			//如果是微信咨询则微信回复
 			/*--------------------------------------------------------------------------------------------------------*/
-			if(window.chatWarpIndex == 1){
+			/*if(window.chatWarpIndex == 1){
 				o.cont.type = "weixin";
 			}
 			if(window.chatWarpIndex == 2){
@@ -270,63 +285,19 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 			}
 			if(window.chatWarpIndex == 4){
 				o.cont.type = "feixin";
-			}
+			}*/
 			/*--------------------------------------------------------------------------------------------------------*/
-			createMsgItem(o,1,$chatWarp);
-			var $items = $chatWarp.find(".items");
-			nicesx = nicesx&&createScroll($items,"245");
-			var nicesxFn = function(){
-				var height = $chatWarp.find(".items > .warp").outerHeight(true);
-				var $items = $chatWarp.find(".items");
-				$items.scrollTop(height);
-				nicesx&&nicesx.resize();
-			}
-			setTimeout(nicesxFn,10);
-			line($chatWarp);
-			//ue.setContent("");
-			
-			$(".capacityPrompt").hide(0);
-			
-			if(window.chatWarpIndex == 4){
-				clickCount++;
-				if(clickCount<2){
-					return;
-				}
-			}
-			
+			createMsgItem(o,1,$content);
 			//重新计算等待时间
-			$("#content .nav > .panel:gt(1)").eq(window.chatWarpIndex).find(".msgInfo .message h1 span").text("00:00");
-			interSetTime(window.chatWarpIndex);
-			//演示使用
-			costemerIndex = costemerIndexMap[window.chatWarpIndex];
-			if(window.chatWarpIndex <= costemerIndexMap.length && costemerIndex < costemer.length){
-				o = costemer[costemerIndex];			
-				window.setTimeout(function(){
-					createMsgItem(o,1,$chatWarp);
-					//line($chatWarp);
-					$chatWarp.find(".warp > div").removeClass("last lastRepItem").attr("style","");
-					var $lastDiv = $chatWarp.find(".warp > div:last");
-					if($lastDiv.hasClass("item")){
-						$chatWarp.find(".warp > div.repItem:last").addClass("lastRepItem");
-						$lastDiv.addClass("last");
-					}else{
-						$lastDiv.addClass("last");
-					}
-					//更新滚动条
-					//nicesx = createScroll($items,"445");
-					setTimeout(nicesxFn,10);
-				},1500);
-			}
-			if(window.chatWarpIndex <= costemerIndexMap.length)	{
-				costemerIndex++;
-				costemerIndexMap[window.chatWarpIndex] = costemerIndex;
-			}
-			
-			//清除时间闪动
-			if(window.interFadeTime && window.chatWarpIndex == 0){
-				window.clearInterval(window.interFadeTime);
-				$("#content .nav > .panel:gt(1)").eq(window.chatWarpIndex).find(".msgInfo .message h1 span").show();
-			}
+			index.client.resetTimerOfCurrentClient();
+			//临时模拟的回应信息
+			window.setTimeout(function(){
+				createMsgItem({
+					time:"09:16:20:100",
+					type:0,
+					cont:{time:"08:16",name:'',msg:'test info.',type:'feixin'}
+				},1,$content);
+			},1500);
 		});
 		
 		nicesRight = Util.busiComm.createScroll($(".scrollBody>.chatRight").height(743));
@@ -337,11 +308,11 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 		
 		//交流方式
 		$(".intercommunion>div").hide(0);
-		$("#content .chatTool li .phone").removeClass("hangUp").parents(".on").removeClass("on");
-		var $timer = $("#content .intercommunion .speech .timer");
+		$(".chatTool li .phone",$content).removeClass("hangUp").parents(".on").removeClass("on");
+		var $timer = $(".intercommunion .speech .timer",$content);
 		$timer.attr("timer","0").text("00:00:00");
 		window.speechTimer&&clearInterval(window.speechTimer);
-		$("#content").undelegate(".chatTool li .phone","click.speech").delegate(".chatTool li .phone","click.speech",function(){
+		$content.undelegate(".chatTool li .phone","click.speech").delegate(".chatTool li .phone","click.speech",function(){
 			$timer.attr("timer","0").text("00:00:00");
 			if($(this).hasClass("hangUp")){
 				$(this).removeClass("hangUp").parents(".on").removeClass("on");
@@ -365,10 +336,81 @@ define(['Util','text!module/index/content.tpl'], function(Util, content){
 				},1000);
 			}
 		});
-	});
 
-	return {
-		content: content
+
+		/*根据数据创建内容*/
+		function createMsgItem(o,i,p){
+			var time = o.time;
+			var obj = o.cont;
+			var t = o.type;	
+			var str = '';
+			if(t == 1){
+				str = createItemRep(obj);
+			}else if(t == 0){
+				str = createItem(obj);
+			}
+			p.find(".chatLeft .items > .warp", $content).append(str);
+		}
+
+		//创建聊天对话框 -- 客服回复
+		function createItemRep(o){
+			var s = msgRe(o.msg);
+			var repStr = [];
+				repStr.push('<div desc-type="'+o.type+'" class="repItem"><div class="msgCont"><div class="gosBox"><div class="gosBoxTop"><div class="gosBoxTopRight"><div class="gosBoxTopCenter"></div></div></div><div class="gosBoxMid"><div class="gosBoxMidRight"><div class="gosBoxMidCenter">');
+				repStr.push('<div>'+s+'</div>');
+				if(o.type == "weibo"){
+					itemStr.push('<div class="rep"><span class="forward">转发 '+o.forward+'</span><span class="line"></span><span class="comment"><span class="repCenter">评论 <i>'+o.comment+'</i></span></span><a href="#" class="rePersonalLetter"><span class="repCenter">回私信</span></a></div>');
+				}
+				repStr.push('</div></div></div><div class="gosBoxButtom"><div class="gosBoxButtomRight"><div class="gosBoxButtomCenter"></div></div></div></div></div>');
+				repStr.push('<div class="icon"><div class="msgType"><span class="type '+o.type+'"></span></div><p class="time">'+/*o.time*/getRepTime()+'</p></div></div>');
+			return repStr.join("");
+		}
+
+		function createItem(o){
+			var s = msgRe(o.msg);
+			var repStr = [];
+			var itemStr = [];
+				itemStr.push('<div desc-type="'+o.type+'" class="item"><div class="line"><div class="icon"><div class="msgType"><span class="type '+o.type+'"></span></div><p class="time">'+/*o.time*/getRepTime()+'</p></div><div class="msgCont"><div class="cosBox"><div class="trangle"></div><div class="cosBoxTop"><div class="cosBoxTopRight"><div class="cosBoxTopCenter"></div></div></div>');
+		        itemStr.push('<div class="cosBoxMid"><div class="cosBoxMidRight"><div class="cosBoxMidCenter">');
+		        o.name&&itemStr.push('<h1><span class="name">'+o.name+'</span></h1>');
+		        itemStr.push('<div>'+s+'</div>');
+		        if(o.type == "weibo"){
+					itemStr.push('<div class="rep"><span class="forward">转发 '+o.forward+'</span><span class="line"></span><span class="comment"><span class="repCenter">评论 <i>'+o.comment+'</i></span></span><a href="#" class="rePersonalLetter"><span class="repCenter">回私信</span></a></div>');
+					var reps = o.reps;
+					var l = reps ? reps.length : 0;
+					if(l > 0){
+						for(var i = 0 ; i < l ; i++){
+							var oo = reps[i];
+							var ss= msgRe(oo.msg);
+							repStr.push('<div class="cosBox repCosBox"><div class="cosBoxTop"><div class="cosBoxTopRight"><div class="cosBoxTopCenter"></div></div></div><div class="cosBoxMid"><div class="cosBoxMidRight"><div class="cosBoxMidCenter"><div>'+ss+'</div><div class="rep"><span class="forward">转发 '+oo.forward+'</span><span class="line"></span><span class="comment"><span class="repCenter">评论 '+oo.comment+'</span></span></div></div></div></div><div class="cosBoxButtom"><div class="cosBoxButtomRight"><div class="cosBoxButtomCenter"></div></div></div></div>');
+						}
+					}
+				}
+		        itemStr.push('</div></div></div><div class="cosBoxButtom"><div class="cosBoxButtomRight"><div class="cosBoxButtomCenter"></div></div></div></div>');
+				itemStr.push(repStr.join(""));
+				itemStr.push('</div></div></div>');
+			return itemStr.join("");
+		}
+		/*转换内容中的图片代号*/
+		function msgRe(s){
+			for(var i = 0 ; i < 21/*代表有21种替换表情*/ ; i++){
+				var st = "&img"+(i+1)+";";
+				var reg = new RegExp(st);	
+				s = s.replace(reg,'<img src="resources/default/images/qq/'+(i+1)+'.gif"/>');
+			}
+			return s;
+		}
+
+		//回复时间获取函数
+		function getRepTime(){
+			function formatDoubleDigit(number){//格式为两位数
+				return number<10?"0"+number:number;
+			}
+			var time = new Date();
+			return formatDoubleDigit(time.getHours()) + ":" + formatDoubleDigit(time.getMinutes()) +":"+ formatDoubleDigit(time.getSeconds());
+		}
+		return $content;
 	}
 
+	return initialize;
 })

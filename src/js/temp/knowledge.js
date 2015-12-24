@@ -13,10 +13,11 @@ define(function(){
         必需为jquery dom对象，框架会将此dom添加到选项卡内容区域
     */
     var initialize = function(index){
+        index.main.createTab('businessTab', 'js/temp/knowledge');
+        
         $el.on('click', 'input', function(e){
             console.log(index.main)
-            index.main.createTab('businessTab', 'js/temp/knowledge');
-        });
+        });    
 
         this.content = $el;
         return $el;

@@ -949,7 +949,12 @@ define([''],function(){
 				require.undef(_url);
 				var _html = require([_url], $.proxy(function(_html){
 					if (typeof(_html) === 'function'){
-						self.html(_html(this.data && this.data._index || {}));
+						var result = _html(this.data && this.data._index || {});
+						if (typeof(result) === 'object'){
+							self.empty().append(result);
+						}else{
+							self.html(result);
+						}
 					}else{
 						self.html(_html.content);
 					}
