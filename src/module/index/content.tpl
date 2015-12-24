@@ -448,8 +448,8 @@
                     </div> 
                   </li>-->
                 </ul>
-                <div class="msgCont" style="overflow:hidden">
-                  <script tar="editor"  id="editor_rep" type="text/plain"></script>
+                <div class="msgCont" >
+                  <script tar="editor" id="editor_rep_{{client.phoneNum}}" type="text/plain"></script>
                 </div>
                 <a class="sendBtn">发 送</a> </div>
             </div>
