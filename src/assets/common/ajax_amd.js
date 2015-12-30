@@ -3,7 +3,7 @@
 * @date：2015-09-16
 * @desc: 通过 HTTP 请求加载远程数据，底层依赖jQuery的AJAX实现。当前接口实现了对jQuery AJAX接口的进一步封装。
 */
-define([''], function(){
+define(function(){
 	var ajax = {
 		/**
 		 * 请求状态码
@@ -119,6 +119,100 @@ define([''], function(){
 		postJson : function(url, cmd, callback) {
 			dataType = this.dataType.JSON;
 			this.ajax(url, 'POST', cmd, dataType, callback,'');
+		},
+		/**
+		 * 基于jQuery ajax的封装，可配置化
+		 * 
+		 * @method ajax
+		 * @param {String}
+		 *            url HTTP(POST/GET)请求地址
+		 * @param {Object}
+		 *            cmd json参数命令和数据
+		 * @param {Function}
+		 *            callback [optional,default=undefined] 请求成功回调函数,返回数据data和isSuc
+		 */
+		jsonpGet:function(url, cmd, callback, sync){
+			this.jsonpAjax(url, 'get', cmd, callback);
+		},
+		/**
+		 * 基于jQuery ajax的封装，可配置化
+		 * 
+		 * @method ajax
+		 * @param {String}
+		 *            url HTTP(POST/GET)请求地址
+		 * @param {String}
+		 *            type POST/GET
+		 * @param {Object}
+		 *            cmd json参数命令和数据
+		 * @param {Function}
+		 *            callback [optional,default=undefined] 请求成功回调函数,返回数据data和isSuc
+		 */
+		jsonpAjax : function(url, type, cmd, callback, sync) {
+			var param = "";
+			async = sync ? false : true;
+			var thiz = this;
+			//var cache = (dataType == "html") ? true : false;
+			if (!url || url === ''){
+				console.log('the url of param cann\'t equals null or empty of string');
+				return false;
+			}
+			if (type != 'get' && type != 'post'){
+				console.log('the type of param must be get or post');
+				return false;
+			}
+			if (!callback || callback === ''){
+				console.log('you missed callback, it must be a function');
+				return false;
+			}
+			if (!cmd || cmd === ''){
+				console.log('warn! your passed null or empty to cmd param, are you suer?');
+			}
+			$.ajax({
+				url : url,
+				type : type,
+				data : cmd,
+				jsonpCallback: 'jsonCallback',
+	            contentType: "application/json",
+	            dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
+				//cache : cache,
+				async : async,
+				timeout : thiz.TIME_OUT,
+				beforeSend : function(xhr) {
+					xhr.overrideMimeType("text/plain; charset=utf-8");
+				},
+				success : function(data) {
+					if (!data) {
+						return;
+					}
+					/*if (dataType == "html") {
+						callback(data, true);
+						return;
+					}*/
+					try {
+						//data = eval('(' + data + ')');
+						//超时重定向至登陆页
+						if (data.returnCode=='BUSIOPER=RELOGIN') {
+							//判断是否存在iframe
+			                window.location.href = '../../login.html';
+							return;
+						}
+					} catch (e) {
+						alert("JSON Format Error:" + e.toString());
+					}
+					var isSuc = thiz.printReqInfo(data);
+					if (callback && data) {
+						callback(data || {}, isSuc);
+					}
+				},
+				error : function() {
+				    var retErr ={};
+				    retErr['returnCode']="404";
+				    retErr['returnMessage']="网络异常或超时，请稍候再试！"; 
+					callback(retErr, false);
+				},
+	            complete:function(){
+	            }
+			});
 		},
 		/**
 		 * 基于jQuery ajax的封装，可配置化
