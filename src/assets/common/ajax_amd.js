@@ -3,7 +3,7 @@
 * @date：2015-09-16
 * @desc: 通过 HTTP 请求加载远程数据，底层依赖jQuery的AJAX实现。当前接口实现了对jQuery AJAX接口的进一步封装。
 */
-define([''], function(){
+define(function(){
 	var ajax = {
 		/**
 		 * 请求状态码
@@ -121,6 +121,73 @@ define([''], function(){
 			this.ajax(url, 'POST', cmd, dataType, callback,'');
 		},
 		/**
+		 * 跨域请求json数据
+		 * 
+		 * @method ajax
+		 * @param {String}
+		 *            url HTTP(POST/GET)请求地址
+		 * @param {Object}
+		 *            cmd json参数命令和数据
+		 * @param {Function}
+		 *            callback [optional,default=undefined] 请求成功回调函数,返回数据data和isSuc
+		 */
+		jsonpGet : function(url, cmd, callback, sync) {
+			var param = "";
+			async = sync ? false : true;
+			var thiz = this;
+			if (!url || url === ''){
+				console.log('the url of param cann\'t equals null or empty of string');
+				return false;
+			}
+			if (!callback || callback === ''){
+				console.log('you missed callback, it must be a function');
+				return false;
+			}
+			if (!cmd || cmd === ''){
+				console.log('warn! your passed null or empty to cmd param, are you suer?');
+			}
+			$.ajax({
+				url : url,
+				type : 'get',
+				data : cmd,
+				jsonpCallback: 'jsonCallback',
+	            contentType: "application/json",
+	            dataType: 'jsonp', 
+				async : async,
+				timeout : thiz.TIME_OUT,
+				beforeSend : function(xhr) {
+					xhr.overrideMimeType("text/plain; charset=utf-8");
+				},
+				success : function(data) {
+					if (!data) {
+						return;
+					}
+					try {
+						//超时重定向至登陆页
+						if (data.returnCode=='BUSIOPER=RELOGIN') {
+							//判断是否存在iframe
+			                window.location.href = '../../login.html';
+							return;
+						}
+					} catch (e) {
+						alert("JSON Format Error:" + e.toString());
+					}
+					var isSuc = thiz.printReqInfo(data);
+					if (callback && data) {
+						callback(data || {}, isSuc);
+					}
+				},
+				error : function() {
+				    var retErr ={};
+				    retErr['returnCode']="404";
+				    retErr['returnMessage']="网络异常或超时，请稍候再试！"; 
+					callback(retErr, false);
+				},
+	            complete:function(){
+	            }
+			});
+		},
+		/**
 		 * 基于jQuery ajax的封装，可配置化
 		 * 
 		 * @method ajax
@@ -163,7 +230,6 @@ define([''], function(){
 						return;
 					}
 					try {
-						//data = eval('(' + data + ')');
 						//超时重定向至登陆页
 						if (data.returnCode=='BUSIOPER=RELOGIN') {
 							//判断是否存在iframe
