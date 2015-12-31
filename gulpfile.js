@@ -108,7 +108,7 @@ gulp.task('useref',['requirejsBuild'], function () {
 gulp.task('webserver', function() {
   gulp.src('./')
     .pipe(webserver({
-        host:'192.168.92.198',
+        //host:'192.168.92.198',
         livereload: false,
         directoryListing: true,
         open: true
