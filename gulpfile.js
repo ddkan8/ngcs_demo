@@ -5,7 +5,10 @@ var gulp 	= require('gulp'),
 	RevAll 	= require('gulp-rev-all'),
     connect = require('gulp-connect'),
     webserver = require('gulp-webserver'),
-    gulpSequence = require('gulp-sequence'); //顺序执行task
+    gulpSequence = require('gulp-sequence');
+var fs = require('fs');
+var path = require('path');
+var connect = require('gulp-connect');
 
 
 gulp.task('requirejsBuild',['clean'], function (cb) {
@@ -105,9 +108,10 @@ gulp.task('useref',['requirejsBuild'], function () {
 gulp.task('webserver', function() {
   gulp.src('./')
     .pipe(webserver({
-      livereload: false,
-      directoryListing: true,
-      open: true
+        //host:'192.168.92.198',
+        livereload: false,
+        directoryListing: true,
+        open: true
     }));
 });
 
@@ -116,7 +120,19 @@ gulp.task('webserver', function() {
 gulp.task('connect', function() {
     connect.server({
         port: 8090,
-        livereload: false
+        livereload: false,
+        middleware: function(connect, options) {
+            return [
+                function(req, res, next) {
+                    var filepath = path.join(options.root, req.url);
+                    if ('POSTPUTDELETE'.indexOf(req.method.toUpperCase()) > -1
+                        && fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {
+                        return res.end(fs.readFileSync(filepath));
+                    }
+                    return next();
+                }
+            ];
+        }
     });
 });
 
