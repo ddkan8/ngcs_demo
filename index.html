@@ -1,176 +1,307 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="renderer" content="webkit" />
-<meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1" />
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<title>布局</title>
-<link rel="stylesheet" href="src/assets/css/basic.css" />
-<link rel="stylesheet" href="src/assets/css/common.css"/>
-<link rel="stylesheet" href="src/assets/css/app_new.css"/>
-<link rel="stylesheet" href="src/assets/css/Tab.css"/>
-<link rel="stylesheet" href="src/assets/css/ProcessBar.css"/>
-<link rel="stylesheet" href="src/assets/css/scrollBar.css" />
-<link rel="stylesheet" href="src/assets/css/PopWin.css"/>
-<link rel="stylesheet" href="src/assets/css/droplist.css" />
-</head>
-<body>
-<div id="header">
-	<div class="headerBg">
-		<div class="layout">
-            <a href="javascript:;" id="menu1" class="trigger"></a>
-            <div class="warp">	
-                <a class="logo" href="javascript:;"><img src="src/assets/img/appNew/icon-logo_03.png" />新一代客服</a>
-                <div class="menu">
-                    <div class="flowTools">
-                        <img class="iconTools" src="src/assets/img/appNew/icon-notice_03.png" />
-                        <a class="tools">
-                            <span class="icon"></span>
-                            <div class="entertainingDiversions">
-                                <span class="txt"></span>
-                            </div>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="renderer" content="webkit" />
+        <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <title>布局</title>
+        <link rel="stylesheet" href="src/assets/css/basic.css" />
+        <link rel="stylesheet" href="src/assets/css/common.css" />
+        <link rel="stylesheet" href="src/assets/css/app_new.css" />
+        <link rel="stylesheet" href="src/assets/css/Tab.css" />
+        <link rel="stylesheet" href="src/assets/css/ProcessBar.css" />
+        <link rel="stylesheet" href="src/assets/css/scrollBar.css" />
+        <link rel="stylesheet" href="src/assets/css/PopWin.css" />
+        <link rel="stylesheet" href="src/assets/css/droplist.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div class="headerBg">
+                <div class="layout">
+                    <a href="javascript:;" id="menu1" class="trigger">
+                    </a>
+                    <div class="warp">
+                        <a class="logo" href="javascript:;">
+                            <img src="src/assets/img/appNew/icon-logo_04.png" />
+                            新一代客服
                         </a>
+                        <div class="menu">
+                            <div class="flowTools">
+                                <img class="iconTools" src="src/assets/img/appNew/icon-notice_03.png"
+                                />
+                                <a class="tools">
+                                    <span class="icon">
+                                    </span>
+                                    <div class="entertainingDiversions">
+                                        <span class="txt">
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <ul class="headNav">
+                                <li class="dealType1">
+                                    <a>
+                                        <em>
+                                        </em>
+                                        <h3>
+                                            受理请求
+                                        </h3>
+                                    </a>
+                                </li>
+                                <li class="dealType2">
+                                    <a>
+                                        <em>
+                                        </em>
+                                        <h3>
+                                            综合结续
+                                        </h3>
+                                    </a>
+                                </li>
+                                <li class="dealType3">
+                                    <a>
+                                        <em>
+                                        </em>
+                                        <h3>
+                                            密码验证
+                                        </h3>
+                                    </a>
+                                </li>
+                                <li class="dealType4">
+                                    <a>
+                                        <em>
+                                        </em>
+                                        <h3>
+                                            通话保持
+                                        </h3>
+                                    </a>
+                                </li>
+                                <li class="dealType5">
+                                    <!--desc-tip="结束请求"-->
+                                    <a href="javascript:;;" class="close">
+                                        <em>
+                                        </em>
+                                        <h3>
+                                            结束会话
+                                        </h3>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="fn-clear space-line">
+                                <li>
+                                    <a href="javascript:;" class="checkOut">
+                                        示忙
+                                        <span class="icon">
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" class="checkOut">
+                                        整理态
+                                        <span class="icon">
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" class="checkOut">
+                                        外呼
+                                        <span class="icon">
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="fn-clear space-line">
+                                <li>
+                                    <!-- signin-normal ---- signin-active -->
+                                    <em class="signin-normal">
+                                    </em>
+                                    坐席未签入
+                                </li>
+                            </ul>
+                            <ul class="fn-clear">
+                                <li class="top-msg">
+                                    <a href="#nogo">
+                                        <span>
+                                            28
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="top-favorite">
+                                    <a href="#nogo">
+                                    </a>
+                                </li>
+                                <li class="top-search">
+                                    <a href="#nogo">
+                                    </a>
+                                    <div class="search" style="display:;">
+                                        <a class="icon" id="search_knowledge">
+                                        </a>
+                                        <input type="text" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="userInfo">
+                                        <p class="userName">
+                                            <strong id="J_userName">
+                                            </strong>
+                                            <span class="icon">
+                                            </span>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- <div class="clear"></div> -->
+                        </div>
+                        <!-- <div class="clear"></div> -->
                     </div>
-                    <ul class="headNav">
-                        <li class="dealType1">
-                            <a><p></p>
-                            <h3>受理请求</h3>
-                            </a>
-                        </li>
-                        <li class="dealType2">
-                            <a><p></p>
-                            <h3>综合结续</h3>
-                            </a>
-                        </li>
-                        <li class="dealType3">
-                            <a><p></p>
-                            <h3>密码验证</h3>
-                            </a>
-                        </li>
-                        <li class="dealType4">
-                            <a><p></p>
-                            <h3>通话保持</h3>
-                            </a>
-                        </li>
-                        <li class="dealType5">
-                            <!--desc-tip="结束请求"-->
-                            <a href="javascript:;;" class="close"><p></p>
-                            <h3>结束会话</h3>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="fn-clear">
-                        <li>
-                            <!--<a href="javascript:;" id="messageBubble" class="type sms"><span class="bubble">6</span></a>
-                            <a href="javascript:;" id="zida" class="zida">自答</a>
-                            <a href="javascript:;" class="state"><span class="icon"></span>
-                            <div class="entertainingDiversions"><span class="txt">等待应答<i>9:23</i></span></div></a>-->
-                            <a href="javascript:;" class="checkOut">示忙<span class="icon"></span></a>
-                        </li>
-                        <li>
-                        	<a href="javascript:;" class="checkOut">外呼<span class="icon"></span></a>
-                        </li>
-                        <li class="b0">
-                            <div class="search">
-                                <a class="icon" id="search_knowledge"></a><input type="text"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="userInfo">
-                                <p class="userName">
-                                    <strong id="J_userName"></strong>【<san id="J_userId"></san>】
-                                    <span class="icon"></span>
-                                </p>
-                                <!--<a href="login.html">注销</a>-->
-                            </div>
-                        </li>
-                        <li>
-                            <div class="userState busyState">
-                                示忙中示忙中
-                            </div>
-                        </li>
-                        <li>
-                            <div class="userMsg">16</div>
-                        </li>
-                        <!--<li>
-                            <a class="setting"></a>
-                        </li>-->
-                    </ul>
-                    <!-- <div class="clear"></div> -->
                 </div>
-                <!-- <div class="clear"></div> -->
             </div>
         </div>
-    </div>
-</div>
-<div id="content">
-    <div class="layout">
-        <div class="content pd17 fn-clear">
-            <div class="nav">
-                <div class="searchPanel">
-                    <!--<a class="searchBtn"></a>-->
-                    <span class="peopleNum"><strong>0</strong>人等待中</span>
-                </div>
-                <div class="panel">
-                    <div class="topW"><div class="right"><div class="center"></div></div></div>
-                    <div class="centerW">
-                    <div class="right"><div class="center">
-                        <div class="seeHistory">
-                            <img src="src/assets/img/appNew/icon-history_03.png" alt=""/>
-                            <span>查看历史</span>
+        <div id="content">
+            <div class="layout">
+                <div class="content pd17 fn-clear">
+                    <div class="nav">
+                        <div class="waiting-num">
+                            <h3>
+                                <span>
+                                    30
+                                </span>
+                                人等待中
+                            </h3>
+                            <div>
+                                接入
+                                <select name="" id="">
+                                    <option value="">
+                                        5
+                                    </option>
+                                    <option value="" selected="selected">
+                                        10
+                                    </option>
+                                </select>
+                                人
+                            </div>
                         </div>
-                        <div class="tirggerRequest">
-                            <img src="src/assets/img/appNew/icon-next-apply_05.png" alt=""/>
-                            <span>下一个请求</span>
+                        <div class="panel">
+                            <div class="topW">
+                                <div class="right">
+                                    <div class="center">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="centerW">
+                                <div class="right">
+                                    <div class="center">
+                                        <div class="seeHistory">
+                                            <img src="src/assets/img/appNew/icon-history_03.png" alt="" />
+                                            <span>
+                                                查看历史
+                                            </span>
+                                        </div>
+                                        <div class="tirggerRequest">
+                                            <img src="src/assets/img/appNew/icon-next-apply_05.png" alt="" />
+                                            <span>
+                                                下一个请求
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottomW">
+                                <div class="right">
+                                    <div class="center">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div></div></div>
-                    <div class="bottomW"><div class="right"><div class="center"></div></div></div>
-                </div>
-                <div id="J_clientList"></div>
-            </div>
-            <div class="section">
-                <div class="panel clientInfo">
-                    <div class="topW"><div class="right"><div class="center"></div></div></div>
-                    <div class="centerW"><div class="right"><div class="center">
-                        <!--客户信息-->
-                        <div class="userInfoCont"></div>
-                        <!--客户信息-->
-                    </div></div></div>
-                    <div class="bottomW"><div class="right"><div class="center"></div></div></div>
-                </div>
-                <div class="panel mtF7 positionRelative">
-                    <div class="topW"><div class="right"><div class="center"></div></div></div>
-                    <div class="centerW">
-                        <div class="right">
-                            <div class="center" id="chatWarpContainer"></div>
+                        <div id="J_clientList">
                         </div>
                     </div>
-                    <div class="bottomW"><div class="right"><div class="center"></div></div></div>
+                    <div class="section">
+                        <div class="panel clientInfo">
+                            <div class="topW">
+                                <div class="right">
+                                    <div class="center">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="centerW">
+                                <div class="right">
+                                    <div class="center">
+                                        <!--客户信息-->
+                                        <div class="userInfoCont">
+                                        </div>
+                                        <!--客户信息-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottomW">
+                                <div class="right">
+                                    <div class="center">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel mtF7 positionRelative">
+                            <div class="topW">
+                                <div class="right">
+                                    <div class="center">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="centerW">
+                                <div class="right">
+                                    <div class="center" id="chatWarpContainer">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottomW">
+                                <div class="right">
+                                    <div class="center">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="popLayoutWaep weiboAttention" id="weiboAttention">
-    <div class="popContRight">
-        <div class="popLayout">
-            <div class="topTrangle"></div>
-            <div class="accountInfo">
-                <dl>
-                    <dt>账号名</dt>
-                    <dd>爱晒太阳的猫</dd>
-                </dl>
-                <div class="btnsCon"><a class="greenBtn" href="javascript:void(0);"><span><b><i class="plus">&nbsp;</i>加关注</b></span></a></div> 
+        <div class="popLayoutWaep weiboAttention" id="weiboAttention">
+            <div class="popContRight">
+                <div class="popLayout">
+                    <div class="topTrangle">
+                    </div>
+                    <div class="accountInfo">
+                        <dl>
+                            <dt>
+                                账号名
+                            </dt>
+                            <dd>
+                                爱晒太阳的猫
+                            </dd>
+                        </dl>
+                        <div class="btnsCon">
+                            <a class="greenBtn" href="javascript:void(0);">
+                                <span>
+                                    <b>
+                                        <i class="plus">
+                                            &nbsp;
+                                        </i>
+                                        加关注
+                                    </b>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popBotR">
+                <div class="popBotC">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="popBotR">
-        <div class="popBotC"></div>
-    </div>
-</div>
-<script src="src/assets/lib/requirejs/requirejs.min.js" data-main="src/assets/common/requirejsMain"></script>
-<script src="editor_config.js"></script>
-<script  src="editor_all.js"></script>
-</body>
+        <script src="src/assets/lib/requirejs/requirejs.min.js" data-main="src/assets/common/requirejsMain"></script>
+        <script src="editor_config.js"></script>
+        <script src="editor_all.js"></script>
+    </body>
+
 </html>
