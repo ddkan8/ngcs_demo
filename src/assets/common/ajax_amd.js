@@ -120,18 +120,23 @@ define(function(){
 			dataType = this.dataType.JSON;
 			this.ajax(url, 'POST', cmd, dataType, callback,'');
 		},
+		getJsonp:function(url, cmd, callback, sync) {
+			this.ajaxJsonp(url, 'GET', cmd, callback, sync);
+		},
 		/**
 		 * 跨域请求json数据
 		 * 
 		 * @method ajax
 		 * @param {String}
 		 *            url HTTP(POST/GET)请求地址
+		 * @param {String}
+		 *            type POST/GET
 		 * @param {Object}
 		 *            cmd json参数命令和数据
 		 * @param {Function}
 		 *            callback [optional,default=undefined] 请求成功回调函数,返回数据data和isSuc
 		 */
-		jsonpGet : function(url, cmd, callback, sync) {
+		ajaxJsonp : function(url, type, cmd, callback, sync) {
 			var param = "";
 			async = sync ? false : true;
 			var thiz = this;
@@ -148,7 +153,7 @@ define(function(){
 			}
 			$.ajax({
 				url : url,
-				type : 'get',
+				type : type,
 				data : cmd,
 				jsonpCallback: 'jsonCallback',
 	            contentType: "application/json",
@@ -208,6 +213,7 @@ define(function(){
 			var thiz = this;
 			var cache = (dataType == "html") ? true : false;
 			$.ajax({
+				crossDomain: true,
 				url : url,
 				type : type,
 				data : cmd,
